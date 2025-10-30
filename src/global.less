@@ -1,0 +1,69 @@
+@import "~antd/dist/antd.variable.min.css";
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+  background-color: #0e1c47;
+}
+ol,
+ul {
+  list-style-position: outside;
+  list-style-type: none;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+
+/* 清除浮动 */
+.clearfix:after {
+  display: block;
+  clear: both;
+  content: "";
+}
+
+/* 全局滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.ant-empty-description {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+/* 确保图表容器在预览页面中有足够的高度 */
+.echarts-for-react {
+  height: 100% !important;
+}
+
+/* 确保水球图正常显示 */
+.liquidFill {
+  width: 100%;
+  height: 100%;
+}
