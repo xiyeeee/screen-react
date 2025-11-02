@@ -159,7 +159,7 @@ const ComponentPreview = () => {
   // 复制路径到剪贴板
   const handleCopyPath = async (path: string) => {
     try {
-      await navigator.clipboard.writeText(path);
+      await navigator.clipboard.writeText("xxx");
       message.success("路径已复制到剪贴板！");
     } catch (err) {
       // 如果 clipboard API 不可用，使用旧的方法
@@ -231,7 +231,8 @@ const ComponentPreview = () => {
                       <div className={styles.componentPreviewBox}>{renderPreview(component)}</div>
                       <div className={styles.componentName}>{component.name}</div>
                       <div className={styles.componentPosition}>
-                        路径: {component.position}
+                        {/* 路径: {component.position} */}
+                        路径: {"xxx"}
                         <Button
                           style={{ color: "#CCC" }}
                           type="text"
