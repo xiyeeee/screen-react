@@ -18,36 +18,24 @@ const CustomLegend = ({ data, colors }) => {
       <div className={styles.legendHeader}>
         <span className={styles.headerEmpty} />
         <span className={styles.headerName} />
-        <span className={styles.headerTitle}>织机数量</span>
+        <span className={styles.headerTitle}>机器数量</span>
         <span className={styles.headerPercent}>占比</span>
       </div>
 
       {/* 数据行 */}
       {data.map((item, index) => (
         <div key={index} className={styles.legendItem}>
-          <div
-            className={styles.legendDot}
-            style={{ backgroundColor: colors[index] }}
-          />
+          <div className={styles.legendDot} style={{ backgroundColor: colors[index] }} />
           <span className={styles.legendName}>{item.name}</span>
           <span className={styles.legendValue}>{item.value}</span>
-          <span className={styles.legendPercent}>
-            {((item.value / total) * 100).toFixed(1)}%
-          </span>
+          <span className={styles.legendPercent}>{((item.value / total) * 100).toFixed(1)}%</span>
         </div>
       ))}
     </div>
   );
 };
 // 生成扇形的曲面参数方程，用于 series-surface.parametricEquation
-function getParametricEquation(
-  startRatio,
-  endRatio,
-  isSelected,
-  isHovered,
-  k,
-  h
-) {
+function getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, h) {
   // 计算
   const midRatio = (startRatio + endRatio) / 2;
 
@@ -82,32 +70,20 @@ function getParametricEquation(
 
     x: function (u, v) {
       if (u < startRadian) {
-        return (
-          offsetX +
-          Math.cos(startRadian) * (1 + Math.cos(v) * k) * hoverRate * 1.5
-        );
+        return offsetX + Math.cos(startRadian) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
       }
       if (u > endRadian) {
-        return (
-          offsetX +
-          Math.cos(endRadian) * (1 + Math.cos(v) * k) * hoverRate * 1.5
-        );
+        return offsetX + Math.cos(endRadian) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
       }
       return offsetX + Math.cos(u) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
     },
 
     y: function (u, v) {
       if (u < startRadian) {
-        return (
-          offsetY +
-          Math.sin(startRadian) * (1 + Math.cos(v) * k) * hoverRate * 1.5
-        );
+        return offsetY + Math.sin(startRadian) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
       }
       if (u > endRadian) {
-        return (
-          offsetY +
-          Math.sin(endRadian) * (1 + Math.cos(v) * k) * hoverRate * 1.5
-        );
+        return offsetY + Math.sin(endRadian) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
       }
       return offsetY + Math.sin(u) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
     },
@@ -141,8 +117,7 @@ function getPie3D(pieData, internalDiameterRatio) {
     sumValue += pieData[i].value;
 
     const seriesItem = {
-      name:
-        typeof pieData[i].name === "undefined" ? `series${i}` : pieData[i].name,
+      name: typeof pieData[i].name === "undefined" ? `series${i}` : pieData[i].name,
       type: "surface",
       parametric: true,
       wireframe: {
@@ -184,7 +159,7 @@ function getPie3D(pieData, internalDiameterRatio) {
       false,
       false,
       k,
-      series[i].pieData.value
+      series[i].pieData.value,
     );
 
     startValue = endValue;
@@ -333,11 +308,7 @@ const CustomLegendPie3d: React.FC<Props> = (props) => {
 
           {/* ECharts 3D饼图层 */}
           <div className={styles.chartLayer}>
-            <ChartBase
-              title={showTitle}
-              option={option}
-              id="chart_custom_legend_pie3d"
-            />
+            <ChartBase title={showTitle} option={option} id="chart_custom_legend_pie3d" />
           </div>
         </div>
       </div>
@@ -349,5 +320,3 @@ const CustomLegendPie3d: React.FC<Props> = (props) => {
 };
 
 export default CustomLegendPie3d;
-
-

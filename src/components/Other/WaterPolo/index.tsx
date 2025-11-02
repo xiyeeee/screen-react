@@ -1,7 +1,5 @@
-import React from "react";
-import * as echarts from "echarts";
-import "echarts-liquidfill";
 import ChartBase from "@/components/ChartBase";
+import "echarts-liquidfill";
 
 const WaterPolo = () => {
   const option = {
@@ -27,7 +25,7 @@ const WaterPolo = () => {
           insideColor: "#fff",
           fontSize: 30,
           fontWeight: "bold",
-          formatter: function (param) {
+          formatter: function (param: any) {
             return Math.floor(param.value * 100) + "%";
           },
         },
@@ -55,4 +53,3 @@ const WaterPolo = () => {
 };
 
 export default WaterPolo;
-

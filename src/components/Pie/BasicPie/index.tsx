@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import ChartBase from "@/components/ChartBase";
+import React from "react";
 
 interface Props {
   [key: string]: any;
@@ -49,7 +49,7 @@ const BasicPie: React.FC<Props> = (props) => {
       orient: "horizontal",
       right: 10,
       top: 10,
-      data: chartData.map((item) => item.name),
+      data: chartData.map((item: any) => item.name),
       show: showLegend,
       textStyle: {
         color: "#fff",
@@ -95,7 +95,7 @@ const BasicPie: React.FC<Props> = (props) => {
         },
         animationType: "scale",
         animationEasing: "elasticOut",
-        animationDelay: function (idx) {
+        animationDelay: function (idx: any) {
           return Math.random() * 200;
         },
       },
@@ -107,5 +107,3 @@ const BasicPie: React.FC<Props> = (props) => {
 };
 
 export default BasicPie;
-
-

@@ -3,8 +3,17 @@ import * as echarts from "echarts";
 import ChartBase from "@/components/ChartBase";
 import styles from "./index.less";
 
-const CakeLinkage = () => {
-  const [dataMap, setDataMap] = useState({});
+// 类型定义
+interface CakeLinkageProps {
+  [key: string]: any;
+}
+
+interface ProcessedData {
+  [key: string]: any;
+}
+
+const CakeLinkage: React.FC<CakeLinkageProps> = () => {
+  const [dataMap, setDataMap] = useState<ProcessedData>({});
 
   useEffect(() => {
     const formattedData = {
@@ -41,12 +50,12 @@ const CakeLinkage = () => {
     setDataMap(formattedData);
   }, []);
 
-  const dataFormatter = (obj) => {
-    const pList = ["金融类", "政务类", "医疗类", "互联网类"];
-    let temp;
+  const dataFormatter = (obj: { [key: number]: number[] }): ProcessedData => {
+    const pList: string[] = ["金融类", "政务类", "医疗类", "互联网类"];
+    let temp: number[];
     for (let y = 2016; y <= 2020; y++) {
-      let max = 0;
-      let sum = 0;
+      let max: number = 0;
+      let sum: number = 0;
       temp = obj[y];
       for (let i = 0, l = temp.length; i < l; i++) {
         max = Math.max(max, temp[i]);
@@ -78,7 +87,7 @@ const CakeLinkage = () => {
     color: "#0c71cf",
   };
 
-  const getOption = () => {
+  const getOption = (): echarts.EChartsOption => {
     if (!dataMap.dataJR) return {};
 
     return {
@@ -95,9 +104,9 @@ const CakeLinkage = () => {
           right: 30,
           label: {
             color: "#2867a8",
-            formatter(s) {
-              return new Date(s).getFullYear();
-            },
+          formatter(s: any) {
+            return new Date(s).getFullYear();
+          },
           },
           checkpointStyle: {
             color: "#01d8ff",

@@ -1,16 +1,15 @@
-/*
- * @Author: luomingxi
- * @Date: 2025-06-24 16:02:17
- * @Description:
- * @LastEditors: luomingxi
- * @LastEditTime: 2025-07-08 09:04:12
- */
 import ChartBase from "@/components/ChartBase";
 import * as echarts from "echarts";
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+// 🎯 TypeScript 类型定义
+interface DataItem {
+  name: string;
+  value: number;
+}
 
 // 🎨 颜色配置 - 提取到外部便于维护和复用
-const COLOR_SCHEMES = [
+const COLOR_SCHEMES: echarts.graphic.LinearGradient[] = [
   // 深蓝色渐变
   new echarts.graphic.LinearGradient(0, 0, 1, 0, [
     { offset: 0, color: "rgba(22, 61, 119, 0.6)" },
@@ -50,27 +49,27 @@ const COLOR_SCHEMES = [
 
 const HorizontalBarChart = () => {
   // 完整的数据源 - 使用更贴近后端API的key-value格式
-  const fullData = [
-    { name: "织机1", value: 98 },
-    { name: "织机2", value: 13 },
-    { name: "织机3", value: 27 },
-    { name: "织机4", value: 14 },
-    { name: "织机5", value: 56 },
-    { name: "织机6", value: 78 },
-    { name: "织机7", value: 86 },
-    { name: "织机8", value: 112 },
-    { name: "织机9", value: 16 },
-    { name: "织机10", value: 33 },
+  const fullData: DataItem[] = [
+    { name: "机器1", value: 98 },
+    { name: "机器2", value: 13 },
+    { name: "机器3", value: 27 },
+    { name: "机器4", value: 14 },
+    { name: "机器5", value: 56 },
+    { name: "机器6", value: 78 },
+    { name: "机器7", value: 86 },
+    { name: "机器8", value: 112 },
+    { name: "机器9", value: 16 },
+    { name: "机器10", value: 33 },
   ];
 
   // 状态管理 - 简化为单一数据源
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [chartData, setChartData] = useState([]);
-  const [isLoopTransition, setIsLoopTransition] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [chartData, setChartData] = useState<DataItem[]>([]);
+  const [isLoopTransition, setIsLoopTransition] = useState<boolean>(false);
   const displayCount = 5; // 只显示5条数据
 
-  const getCurrentPageData = (startIndex) => {
-    const currentPageData = [];
+  const getCurrentPageData = (startIndex: number): DataItem[] => {
+    const currentPageData: DataItem[] = [];
 
     for (let i = 0; i < displayCount; i++) {
       const index = (startIndex + i) % fullData.length;
@@ -143,7 +142,7 @@ const HorizontalBarChart = () => {
     ],
     grid: {
       top: "30", // 增加顶部边距
-      left: "80", // 🎯 固定左边距，为最长标签预留足够空间（包括"织机11"等）
+      left: "80", // 🎯 固定左边距，为最长标签预留足够空间（包括"机器11"等）
       right: "40",
       bottom: "40", // 增加底部边距
       containLabel: false, // 🔑 禁用自动计算，强制使用固定布局
@@ -167,9 +166,6 @@ const HorizontalBarChart = () => {
       data: [],
       splitNumber: 0,
 
-      splitLine: {
-        show: false,
-      }, //去除网格线
       splitArea: {
         show: false,
       }, //保留网格区域
@@ -236,11 +232,6 @@ const HorizontalBarChart = () => {
             fontSize: 14,
           },
         },
-        axisLine: {
-          lineStyle: {
-            color: "#808492",
-          },
-        },
         data: chartData.map((item) => item.name), // 从数据对象中提取名称
       },
     ],
@@ -251,8 +242,8 @@ const HorizontalBarChart = () => {
         type: "bar",
         barWidth: 12,
         itemStyle: {
-          color: function (params) {
-            // 根据织机名称来选择颜色，确保同一个织机始终是同一种颜色
+          color: function (params: any) {
+            // 根据机器名称来选择颜色，确保同一个机器始终是同一种颜色
             const currentCategory = chartData[params.dataIndex]?.name;
             const machineIndex = fullData.findIndex((item) => item.name === currentCategory);
             return COLOR_SCHEMES[machineIndex % COLOR_SCHEMES.length];

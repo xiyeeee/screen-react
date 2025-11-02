@@ -64,7 +64,7 @@ const LoomCapacityTrend: React.FC<Props> = (props) => {
       },
     },
     {
-      title: "织机",
+      title: "机器",
       dataIndex: "model",
       key: "model",
       width: "30%",
@@ -119,5 +119,3 @@ const LoomCapacityTrend: React.FC<Props> = (props) => {
 };
 
 export default LoomCapacityTrend;
-
-

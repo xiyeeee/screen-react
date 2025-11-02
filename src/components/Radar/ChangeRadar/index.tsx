@@ -1,90 +1,90 @@
 import ChartBase from "@/components/ChartBase";
 import * as echarts from "echarts";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 const mockData = [
   {
-    faultName: "敏感异常",
+    faultName: "问题1",
     capacity: 70,
   },
   {
-    faultName: "卷布不齐",
+    faultName: "问题1",
     capacity: 50,
   },
   {
-    faultName: "成型不均",
+    faultName: "问题1",
     capacity: 60,
   },
   {
-    faultName: "卷布沉重",
+    faultName: "问题1",
     capacity: 60,
   },
   {
-    faultName: "反复跳动",
+    faultName: "问题1",
     capacity: 50,
   },
   {
-    faultName: "转动沉滞",
+    faultName: "问题1",
     capacity: 30,
   },
   {
-    faultName: "系统失灵",
+    faultName: "问题1",
     capacity: 40,
   },
   {
-    faultName: "计长不准",
+    faultName: "问题1",
     capacity: 50,
   },
   {
-    faultName: "运输异常",
+    faultName: "问题1",
     capacity: 60,
   },
   {
-    faultName: "运转故障",
+    faultName: "问题1",
     capacity: 70,
   },
   {
-    faultName: "气垫失效",
+    faultName: "问题1",
     capacity: 80,
   },
   {
-    faultName: "静电干扰",
+    faultName: "问题1",
     capacity: 60,
   },
   {
-    faultName: "采光不足",
+    faultName: "问题1",
     capacity: 65,
   },
   {
-    faultName: "整机断电",
+    faultName: "问题1",
     capacity: 66,
   },
   {
-    faultName: "对边抖动",
+    faultName: "问题1",
     capacity: 75,
   },
   {
-    faultName: "变频器失灵",
+    faultName: "问题1",
     capacity: 58,
   },
   {
-    faultName: "卷凸凹痕",
+    faultName: "问题1",
     capacity: 63,
   },
   {
-    faultName: "布匹窜动",
+    faultName: "问题1",
     capacity: 72,
   },
   {
-    faultName: "链条卡滞",
+    faultName: "问题1",
     capacity: 75,
   },
   {
-    faultName: "轴承异响",
+    faultName: "问题1",
     capacity: 60,
   },
 ];
 // 数据转换函数
-const transformData = (rawData) => {
+const transformData = (rawData: any[]) => {
   if (!rawData || rawData.length === 0) {
     return {
       indicator: [],
@@ -126,11 +126,11 @@ const ChangeRadar: React.FC<Props> = (props) => {
   } = props;
 
   const itemsPerPage = 7;
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentData, setCurrentData] = useState(data?.slice(0, itemsPerPage) || []);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentData, setCurrentData] = useState<any[]>(data?.slice(0, itemsPerPage) || []);
 
   // 稳定化数据长度，避免频繁重新创建定时器
-  const getCurrentPageData = (startIndex) => {
+  const getCurrentPageData = (startIndex: number) => {
     const actualData = data.slice(startIndex, startIndex + itemsPerPage);
     // 如果数据不足itemsPerPage，补充空数据
     const filledData = [...actualData];
@@ -260,6 +260,3 @@ const ChangeRadar: React.FC<Props> = (props) => {
 };
 
 export default ChangeRadar;
-
-
-

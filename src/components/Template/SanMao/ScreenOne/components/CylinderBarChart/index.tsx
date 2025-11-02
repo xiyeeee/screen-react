@@ -1,5 +1,5 @@
 import ChartBase from "@/components/ChartBase";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import footerBg from "./assets/footerBg.png";
 import styles from "./index.module.less";
 interface Props {
@@ -15,10 +15,7 @@ const CylinderBarChart: React.FC<Props> = (props) => {
   }));
 
   // 计算异常数据总和
-  const totalAbnormalCount = allChartData.reduce(
-    (sum, item) => sum + item.value,
-    0
-  );
+  const totalAbnormalCount = allChartData.reduce((sum, item) => sum + item.value, 0);
 
   // 状态管理
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -53,8 +50,7 @@ const CylinderBarChart: React.FC<Props> = (props) => {
       setCurrentIndex((prevIndex) => {
         const nextIndex = prevIndex + itemsPerPage;
         // 如果超出数据范围，回到开始
-        const actualNextIndex =
-          nextIndex >= allChartData.length ? 0 : nextIndex;
+        const actualNextIndex = nextIndex >= allChartData.length ? 0 : nextIndex;
 
         // 更新显示数据
         setChartData(getCurrentPageData(actualNextIndex));
@@ -128,7 +124,7 @@ const CylinderBarChart: React.FC<Props> = (props) => {
     grid: {
       top: "10%",
       left: "5%",
-      bottom: "0%",
+      bottom: "10%",
       right: "0%",
       containLabel: true,
     },
@@ -223,15 +219,11 @@ const CylinderBarChart: React.FC<Props> = (props) => {
         itemStyle: {
           color: function (params) {
             // 如果是空数据，返回透明色
-            return chartData[params.dataIndex]?.isEmpty
-              ? "transparent"
-              : color1;
+            return chartData[params.dataIndex]?.isEmpty ? "transparent" : color1;
           },
           borderColor: function (params) {
             // 如果是空数据，返回透明色
-            return chartData[params.dataIndex]?.isEmpty
-              ? "transparent"
-              : color1;
+            return chartData[params.dataIndex]?.isEmpty ? "transparent" : color1;
           },
           borderWidth: 1,
           borderType: "solid",
@@ -271,9 +263,7 @@ const CylinderBarChart: React.FC<Props> = (props) => {
         itemStyle: {
           color: function (params) {
             // 如果是空数据，返回透明色
-            return chartData[params.dataIndex]?.isEmpty
-              ? "transparent"
-              : "#3eb6f5";
+            return chartData[params.dataIndex]?.isEmpty ? "transparent" : "#3eb6f5";
           },
         },
         zlevel: 2,
@@ -296,9 +286,7 @@ const CylinderBarChart: React.FC<Props> = (props) => {
           normal: {
             color: function (params) {
               // 如果是空数据，返回透明色
-              return chartData[params.dataIndex]?.isEmpty
-                ? "transparent"
-                : "rgba(61,187,255,.16)";
+              return chartData[params.dataIndex]?.isEmpty ? "transparent" : "rgba(61,187,255,.16)";
             },
           },
         },
@@ -320,9 +308,7 @@ const CylinderBarChart: React.FC<Props> = (props) => {
         itemStyle: {
           color: function (params) {
             // 如果是空数据，返回透明色
-            return chartData[params.dataIndex]?.isEmpty
-              ? "transparent"
-              : "#007AFF";
+            return chartData[params.dataIndex]?.isEmpty ? "transparent" : "#007AFF";
           },
         },
         data: chartData.map((item) => ({
@@ -359,9 +345,7 @@ const CylinderBarChart: React.FC<Props> = (props) => {
             shadowOffsetX: 0,
             color: function (params) {
               // 如果是空数据，返回透明色
-              return chartData[params.dataIndex]?.isEmpty
-                ? "transparent"
-                : "#155497";
+              return chartData[params.dataIndex]?.isEmpty ? "transparent" : "#155497";
             },
           },
         },
@@ -393,5 +377,3 @@ const CylinderBarChart: React.FC<Props> = (props) => {
 };
 
 export default CylinderBarChart;
-
-

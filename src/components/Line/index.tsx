@@ -1,4 +1,3 @@
-import React from "react";
 /*
  * @Author: luomingxi
  * @Date: 2025-06-28 15:50:50
@@ -29,8 +28,8 @@ export const chartList = [
   },
   {
     key: "TrendLeftLine",
-    name: "三毛工厂趋势折线图",
-    description: "三毛工厂折线图",
+    name: "xxx工厂趋势折线图",
+    description: "xxx工厂折线图",
     category: "line",
     position: "components/Line/TrendLeftLine",
     component: TrendLeftLine,
@@ -44,4 +43,3 @@ export const chartList = [
     component: ScrollLineChart,
   },
 ];
-

@@ -1,14 +1,11 @@
-/*
- * @Author:
- * @Date: 2025-01-18
- * @Description: 带滚动功能的堆叠柱状图组件
- */
 import ChartBase from "@/components/ChartBase";
 import * as echarts from "echarts";
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // 📊 数据转换函数 - 将后端数据映射为图表数据格式
-const transformBackendToChartData = (backendData) => {
+const transformBackendToChartData = (
+  backendData: Array<{ name: string; stock: number; goods: number }>,
+) => {
   // 商品名称作为X轴数据
   const xdata = backendData.map((item) => item.name);
 
@@ -65,7 +62,12 @@ const COLOR_SCHEMES = [
   ],
 ];
 
-const StockDetailsBar = ({ data = mockBackendData }) => {
+interface StockDetailsBarProps {
+  data?: Array<{ name: string; stock: number; goods: number }>;
+  [key: string]: any;
+}
+
+const StockDetailsBar: React.FC<StockDetailsBarProps> = ({ data = mockBackendData }) => {
   // 📊 转换后端数据为图表数据格式
   const fullDataSource = transformBackendToChartData(data);
 
@@ -79,16 +81,22 @@ const StockDetailsBar = ({ data = mockBackendData }) => {
     result: [],
   });
 
+  // 类型定义
+  interface ChartData {
+    xdata: string[];
+    result: { name: string; data: number[] }[];
+  }
+
   // 📊 动态计算显示数量 - 根据数据长度自适应，最多显示7个商品
   const displayCount = Math.min(5, fullDataSource.xdata.length);
   const totalDataLength = fullDataSource.xdata.length;
 
   // 📈 获取当前页面数据的函数 - 支持商品数据滚动
-  const getCurrentPageData = (startIndex) => {
-    const currentXData = [];
+  const getCurrentPageData = (startIndex: number): ChartData => {
+    const currentXData: string[] = [];
     const currentResult = fullDataSource.result.map((item) => ({
       name: item.name,
-      data: [],
+      data: [] as number[],
     }));
 
     for (let i = 0; i < displayCount; i++) {
@@ -113,7 +121,7 @@ const StockDetailsBar = ({ data = mockBackendData }) => {
     setCurrentData(initialData);
 
     // 设置自动滚动定时器 - 仅在数据足够多时启用滚动
-    let interval;
+    let interval: NodeJS.Timeout;
 
     if (totalDataLength > displayCount) {
       interval = setInterval(() => {
@@ -138,17 +146,19 @@ const StockDetailsBar = ({ data = mockBackendData }) => {
   }, [totalDataLength, displayCount]); // 依赖数据长度，当数据变化时重新初始化
 
   // 📊 动态计算堆叠数据 - 用于pictorialBar装饰
-  const diamondData =
+  const diamondData: number[][] =
     currentData.result.length > 0
-      ? currentData.result.reduce((pre, cur, index) => {
-          pre[index] = cur.data.map((el, id) => el + (pre[index - 1] ? pre[index - 1][id] : 0));
+      ? currentData.result.reduce((pre: number[][], cur, index) => {
+          pre[index] = cur.data.map(
+            (el: number, id: number) => el + (pre[index - 1] ? pre[index - 1][id] : 0),
+          );
           return pre;
-        }, [])
+        }, [] as number[][])
       : [];
 
   // 📊 动态生成系列配置
-  const generateSeries = () => {
-    const series = [];
+  const generateSeries = (): echarts.SeriesOption[] => {
+    const series: echarts.SeriesOption[] = [];
 
     currentData.result.forEach((item, i) => {
       // 主柱体
@@ -168,7 +178,7 @@ const StockDetailsBar = ({ data = mockBackendData }) => {
         label: {
           show: true,
           position: "top", // 在柱子上方显示
-          formatter: function (params) {
+          formatter: function (params: any) {
             // 只显示非零值，避免标签重叠
             return params.value === 0 ? "" : params.value;
           },
@@ -195,14 +205,14 @@ const StockDetailsBar = ({ data = mockBackendData }) => {
         symbolSize: [7, 10],
         data: diamondData[i] || [],
         itemStyle: {
-          color: function (params) {
+          color: function (params: any) {
             if (item.data[params.dataIndex] === 0) {
-              return "rgba(0,0,0,0)";
+              return "rgba(0,0,0,0)" as any;
             } else {
-              return new echarts.graphic.LinearGradient(0, 1, 1, 0, COLOR_SCHEMES[i]);
+              return new echarts.graphic.LinearGradient(0, 1, 1, 0, COLOR_SCHEMES[i]) as any;
             }
           },
-        },
+        } as any,
         tooltip: { show: false },
         // 动画配置
         animationDuration: 1000,
@@ -216,7 +226,7 @@ const StockDetailsBar = ({ data = mockBackendData }) => {
     return series;
   };
 
-  const option = {
+  const option: echarts.EChartsOption = {
     // 🎨 背景色
     backgroundColor: "transparent",
     // 🎬 动画配置

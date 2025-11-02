@@ -1,11 +1,39 @@
 import ChartBase from "@/components/ChartBase";
 import React from "react";
 
-interface Props {
+// 类型定义
+interface SeriesItem {
+  name: string;
+  data: number[];
+}
+
+interface ChartData {
+  categories: string[];
+  series: SeriesItem[];
+}
+
+interface ColorStop {
+  offset: number;
+  color: string;
+}
+
+interface ColorConfig {
+  type: string;
+  x: number;
+  y: number;
+  x2: number;
+  y2: number;
+  colorStops: ColorStop[];
+}
+
+interface StackBarProps {
+  chartData?: ChartData;
+  colorConfig?: ColorConfig[];
+  title?: string;
   [key: string]: any;
 }
 
-const StackBar: React.FC<Props> = (props) => {
+const StackBar: React.FC<StackBarProps> = (props) => {
   const {
     chartData = {
       categories: ["印刷机", "烫金机", "分切机", "复卷机", "打孔机"],
@@ -81,7 +109,7 @@ const StackBar: React.FC<Props> = (props) => {
     ...restProps
   } = props;
 
-  const option = {
+  const option: echarts.EChartsOption = {
     legend: {
       x: "center",
       textStyle: {
@@ -259,10 +287,10 @@ const StackBar: React.FC<Props> = (props) => {
       label: {
         show: false,
         color: "#FFFFFF",
-        formatter: function (e) {
-          // return e.value ? e.value : "";
-          // return e.value ? e.seriesName : "";
-        },
+      formatter: function (e: any) {
+        // return e.value ? e.value : "";
+        // return e.value ? e.seriesName : "";
+      },
       },
       itemStyle: {
         borderRadius: [0, 0, 0, 0],

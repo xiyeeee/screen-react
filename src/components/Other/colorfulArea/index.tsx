@@ -1,10 +1,9 @@
-import React from "react";
-import * as echarts from "echarts";
 import ChartBase from "@/components/ChartBase";
+import * as echarts from "echarts";
 import styles from "./index.less";
 
 const ColorfulArea = () => {
-  const dataFormatter = (obj) => {
+  const dataFormatter = (obj: any) => {
     const pList = [
       0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
     ];
@@ -274,4 +273,3 @@ const ColorfulArea = () => {
 };
 
 export default ColorfulArea;
-

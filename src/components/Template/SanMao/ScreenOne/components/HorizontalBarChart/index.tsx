@@ -141,7 +141,7 @@ const HorizontalBarChart: React.FC<Props> = (props) => {
     ],
     grid: {
       top: "30", // 增加顶部边距
-      left: "80", // 🎯 固定左边距，为最长标签预留足够空间（包括"织机11"等）
+      left: "80", // 🎯 固定左边距，为最长标签预留足够空间（包括"机器11"等）
       right: "40",
       bottom: "40", // 增加底部边距
       containLabel: false, // 🔑 禁用自动计算，强制使用固定布局
@@ -250,7 +250,7 @@ const HorizontalBarChart: React.FC<Props> = (props) => {
         barWidth: 12,
         itemStyle: {
           color: function (params) {
-            // 根据织机名称来选择颜色，确保同一个织机始终是同一种颜色
+            // 根据机器名称来选择颜色，确保同一个机器始终是同一种颜色
             const currentCategory = chartData[params.dataIndex]?.name;
             const machineIndex = fullData.findIndex(
               (item) => item.name === currentCategory

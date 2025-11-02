@@ -14,11 +14,11 @@ const CylinderBarChart: React.FC<Props> = (props) => {
 
   // 基础数据
   const chartData = [
-    { name: "落管异常", value: 82 },
-    { name: "测量异常", value: 65 },
-    { name: "气压不足", value: 45 },
-    { name: "里程异常", value: 78 },
-    { name: "外接异常", value: 56 },
+    { name: "异常1", value: 82 },
+    { name: "异常2", value: 65 },
+    { name: "异常3", value: 45 },
+    { name: "异常4", value: 78 },
+    { name: "异常5", value: 56 },
   ];
 
   const chartNames = chartData.map((item) => item.name);

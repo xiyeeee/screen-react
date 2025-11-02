@@ -1,11 +1,5 @@
 import React from "react";
-/*
- * @Author: luomingxi
- * @Date: 2025-06-24 16:02:17
- * @Description:
- * @LastEditors: luomingxi
- * @LastEditTime: 2025-07-08 09:04:08
- */
+
 import ChartBase from "@/components/ChartBase";
 import * as echarts from "echarts";
 
@@ -135,7 +129,7 @@ const HorizontalBarChart: React.FC = () => {
             fontSize: 12, // 可以适当调小字体
           },
         },
-        data: ["织机10", "织机20", "织机30", "织机40", "织机50", "织机50"],
+        data: ["机器10", "机器20", "机器30", "机器40", "机器50", "机器50"],
       },
     ],
     series: [
@@ -151,26 +145,26 @@ const HorizontalBarChart: React.FC = () => {
           // 确保柱状图居中对齐到刻度线，并且不超出边界
           const barHeight = Math.min(api.size([0, 1])[1] * 0.4, 12); // 更保守的高度设置
 
-          // 定义颜色数组，对应5个织机
+          // 定义颜色数组，对应5个机器
           const colors = [
-            // 织机10 - 红色渐变 (opacity: 0.4)
+            // 机器10 - 红色渐变 (opacity: 0.4)
             new echarts.graphic.LinearGradient(0, 0, 1, 0, [
               { offset: 0, color: "rgba(224, 48, 36, 0.4)" },
               { offset: 1, color: "rgba(224, 48, 36, 0.4)" },
             ]),
-            // 织机20 - 灰色 (opacity: 0.4)
+            // 机器20 - 灰色 (opacity: 0.4)
             "rgba(217, 217, 217, 0.4)",
-            // 织机30 - 绿色渐变 (opacity: 0.4)
+            // 机器30 - 绿色渐变 (opacity: 0.4)
             new echarts.graphic.LinearGradient(0, 0, 1, 0, [
               { offset: 0, color: "rgba(64, 249, 127, 0.4)" },
               { offset: 1, color: "rgba(70, 223, 122, 0.4)" },
             ]),
-            // 织机40 - 橙色渐变 (opacity: 0.4)
+            // 机器40 - 橙色渐变 (opacity: 0.4)
             new echarts.graphic.LinearGradient(0, 0, 1, 0, [
               { offset: 0, color: "rgba(241, 96, 18, 0.4)" },
               { offset: 1, color: "rgba(240, 182, 32, 0.4)" },
             ]),
-            // 织机50 - 青色渐变 (opacity: 0.4)
+            // 机器50 - 青色渐变 (opacity: 0.4)
             new echarts.graphic.LinearGradient(0, 0, 1, 0, [
               { offset: 0, color: "rgba(9, 255, 252, 0.4)" },
               { offset: 1, color: "rgba(36, 221, 234, 0.4)" },

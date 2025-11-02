@@ -1,24 +1,8 @@
-import React from "react";
-/*
- * @Author: luomingxi
- * @Date: 2025-06-28 17:31:47
- * @Description:
- * @LastEditors: luomingxi
- * @LastEditTime: 2025-07-31 11:56:23
- */
-
-/*
- * @Author: luomingxi
- * @Date: 2025-06-28 15:50:50
- * @Description:
- * @LastEditors: luomingxi
- * @LastEditTime: 2025-06-28 16:38:23
- */
 import CircleRunway from "./circleRunway";
 import ColorfulArea from "./colorfulArea";
-import WaterPolo from "./WaterPolo";
-import NumberCard from "./NumberCard";
 import FrameBugStatistics from "./FrameBugStatistics";
+import NumberCard from "./NumberCard";
+import WaterPolo from "./WaterPolo";
 export const chartList = [
   {
     key: "CircleRunway",
@@ -46,19 +30,18 @@ export const chartList = [
   },
   {
     key: "NumberCard",
-    name: "三毛工厂数字统计",
-    description: "三毛工厂数字统计",
+    name: "xxx工厂数字统计",
+    description: "xxx工厂数字统计",
     category: "other",
     position: "components/Other/NumberCard",
     component: NumberCard,
   },
   {
     key: "FrameBugStatistics",
-    name: "三毛工厂自定义故障统计",
-    description: "三毛工厂自定义故障统计 , 绝对定位做的, 需要调整定位位置",
+    name: "xxx工厂自定义故障统计",
+    description: "xxx工厂自定义故障统计 , 绝对定位做的, 需要调整定位位置",
     category: "other",
     position: "components/Other/FrameBugStatistics",
     component: FrameBugStatistics,
   },
 ];
-

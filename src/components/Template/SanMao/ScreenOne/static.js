@@ -22,49 +22,49 @@ export const statusDist = [
 ];
 export const loomRuntimes = [
     {
-        "equipmentName": "织机01",
+        "equipmentName": "机器01",
         "productionLine": "产线01",
         "productivity": 100,
         "runtimePercentage": 95
     },
     {
-        "equipmentName": "织机02",
+        "equipmentName": "机器02",
         "productionLine": "产线02",
         "productivity": 92,
         "runtimePercentage": 90
     },
     {
-        "equipmentName": "织机03",
+        "equipmentName": "机器03",
         "productionLine": "产线03",
         "productivity": 58,
         "runtimePercentage": 55
     },
     {
-        "equipmentName": "织机04",
+        "equipmentName": "机器04",
         "productionLine": "产线04",
         "productivity": 46,
         "runtimePercentage": 45
     },
     {
-        "equipmentName": "织机05",
+        "equipmentName": "机器05",
         "productionLine": "产线05",
         "productivity": 6,
         "runtimePercentage": 5
     },
     {
-        "equipmentName": "织机06",
+        "equipmentName": "机器06",
         "productionLine": "产线06",
         "productivity": 85,
         "runtimePercentage": 80
     },
     {
-        "equipmentName": "织机07",
+        "equipmentName": "机器07",
         "productionLine": "产线07",
         "productivity": 72,
         "runtimePercentage": 70
     },
     {
-        "equipmentName": "织机08",
+        "equipmentName": "机器08",
         "productionLine": "产线08",
         "productivity": 25,
         "runtimePercentage": 25
@@ -72,133 +72,133 @@ export const loomRuntimes = [
 ];
 export const loomProduction = [
     {
-        "loomName": "织机1",
+        "loomName": "机器1",
         "production": 98
     },
     {
-        "loomName": "织机2",
+        "loomName": "机器2",
         "production": 13
     },
     {
-        "loomName": "织机3",
+        "loomName": "机器3",
         "production": 27
     },
     {
-        "loomName": "织机4",
+        "loomName": "机器4",
         "production": 14
     },
     {
-        "loomName": "织机5",
+        "loomName": "机器5",
         "production": 56
     },
     {
-        "loomName": "织机6",
+        "loomName": "机器6",
         "production": 78
     },
     {
-        "loomName": "织机7",
+        "loomName": "机器7",
         "production": 86
     },
     {
-        "loomName": "织机8",
+        "loomName": "机器8",
         "production": 112
     },
     {
-        "loomName": "织机9",
+        "loomName": "机器9",
         "production": 16
     },
     {
-        "loomName": "织机10",
+        "loomName": "机器10",
         "production": 33
     }
 ];
 export const faultStatistics = [
     {
-        "faultType": "上限保护",
+        "faultType": "异常1",
         "occurrence": 3
     },
     {
-        "faultType": "下限保护",
+        "faultType": "异常2",
         "occurrence": 4
     },
     {
-        "faultType": "导数板落下异常",
+        "faultType": "异常3",
         "occurrence": 2
     },
     {
-        "faultType": "满纱残留",
+        "faultType": "异常4",
         "occurrence": 1
     },
     {
-        "faultType": "托盘进异常",
+        "faultType": "异常5",
         "occurrence": 3
     },
     {
-        "faultType": "落管异常",
+        "faultType": "异常6",
         "occurrence": 1
     },
     {
-        "faultType": "测管异常",
+        "faultType": "异常7",
         "occurrence": 2
     },
     {
-        "faultType": "铲纱保护",
+        "faultType": "异常8",
         "occurrence": 1
     },
     {
-        "faultType": "气压不足",
+        "faultType": "异常9",
         "occurrence": 6
     },
     {
-        "faultType": "寻零异常",
+        "faultType": "异常10",
         "occurrence": 4
     },
     {
-        "faultType": "急停",
+        "faultType": "异常11",
         "occurrence": 5
     },
     {
-        "faultType": "导纱板翻起异常",
+        "faultType": "异常12",
         "occurrence": 1
     },
     {
-        "faultType": "里摆异常",
+        "faultType": "异常13",
         "occurrence": 2
     },
     {
-        "faultType": "外摆异常",
+        "faultType": "异常14",
         "occurrence": 3
     },
     {
-        "faultType": "中间位异常",
+        "faultType": "异常15",
         "occurrence": 1
     },
     {
-        "faultType": "托盘退异常",
+        "faultType": "异常16",
         "occurrence": 6
     },
     {
-        "faultType": "落管不够",
+        "faultType": "异常17",
         "occurrence": 1
     },
     {
-        "faultType": "气架不在外摆位",
+        "faultType": "异常18",
         "occurrence": 1
     }
 ];
 export const loomModelDistribution = [
     {
-        "modelName": "织机01型号",
+        "modelName": "机器01型号",
         "percentage": 54.3,
         "modelNum": "51"
     },
     {
-        "modelName": "织机02型号",
+        "modelName": "机器02型号",
         "percentage": 22.7,
         "modelNum": "21"
     },
     {
-        "modelName": "织机03型号",
+        "modelName": "机器03型号",
         "percentage": 23.0,
         "modelNum": "22"
     }

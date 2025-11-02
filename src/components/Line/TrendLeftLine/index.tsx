@@ -93,17 +93,17 @@ const TrendLeftLine: React.FC<Props> = (props) => {
     // 自定义显示逻辑，最多显示4个标签
     return {
       interval: 0,
-      formatter: function (value, index) {
+      formatter: function (value: any, index: number) {
         return showIndexes.includes(index) ? value : "";
       },
-      splitLineFormatter: function (value, index) {
+      splitLineFormatter: function (value: any, index: number) {
         return showIndexes.includes(index);
       },
     };
   };
 
   // 计算实际显示的横坐标数据长度
-  const actualDataLength: React.FC = () => {
+  const actualDataLength = (): number => {
     const arr = chartData.series.map((item) => item.data.length);
     if (Math.max(...arr) >= 10) {
       return 12;
@@ -259,14 +259,14 @@ const TrendLeftLine: React.FC<Props> = (props) => {
         emphasis: {
           focus: "series",
         },
-        animationDelay: function (idx) {
+        animationDelay: function (idx: number) {
           return idx * 100;
         },
       })),
     ],
     color: colorConfig,
     animationEasing: "elasticOut",
-    animationDelayUpdate: function (idx) {
+    animationDelayUpdate: function (idx: number) {
       return idx * 5;
     },
   };

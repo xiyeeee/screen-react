@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react'
-import * as echarts from 'echarts'
-import ChartBase from '@/components/ChartBase'
+import ChartBase from "@/components/ChartBase";
 
 interface Props {
   [key: string]: any;
@@ -11,7 +9,7 @@ const BasicScatter: React.FC<Props> = (props) => {
     chartData = {
       series: [
         {
-          name: '系列1',
+          name: "系列1",
           data: [
             [10.0, 8.04],
             [8.0, 6.95],
@@ -27,7 +25,7 @@ const BasicScatter: React.FC<Props> = (props) => {
           ],
         },
         {
-          name: '系列2',
+          name: "系列2",
           data: [
             [9.0, 9.04],
             [7.0, 8.95],
@@ -49,191 +47,177 @@ const BasicScatter: React.FC<Props> = (props) => {
     showBubbleSize = false,
     symbolSize = 10,
     colorConfig = [
-      '#5470c6',
-      '#91cc75',
-      '#fac858',
-      '#ee6666',
-      '#73c0de',
-      '#3ba272',
-      '#fc8452',
-      '#9a60b4',
-      '#ea7ccc',
+      "#5470c6",
+      "#91cc75",
+      "#fac858",
+      "#ee6666",
+      "#73c0de",
+      "#3ba272",
+      "#fc8452",
+      "#9a60b4",
+      "#ea7ccc",
     ],
-    title = '基础散点图',
-    xAxisName = 'X轴',
-    yAxisName = 'Y轴',
+    title = "基础散点图",
+    xAxisName = "X轴",
+    yAxisName = "Y轴",
     ...restProps
-  } = props
+  } = props;
 
   // 计算趋势线数据
-  const calculateTrendLine = (data) => {
-    if (!data || !data.length) return []
+  const calculateTrendLine = (data: any[]) => {
+    if (!data || !data.length) return [];
 
     // 计算线性回归
-    let sumX = 0
-    let sumY = 0
-    let sumXY = 0
-    let sumX2 = 0
-    let n = data.length
+    let sumX = 0;
+    let sumY = 0;
+    let sumXY = 0;
+    let sumX2 = 0;
+    let n = data.length;
 
     for (let i = 0; i < n; i++) {
-      sumX += data[i][0]
-      sumY += data[i][1]
-      sumXY += data[i][0] * data[i][1]
-      sumX2 += data[i][0] * data[i][0]
+      sumX += data[i][0];
+      sumY += data[i][1];
+      sumXY += data[i][0] * data[i][1];
+      sumX2 += data[i][0] * data[i][0];
     }
 
-    const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX)
-    const intercept = (sumY - slope * sumX) / n
+    const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+    const intercept = (sumY - slope * sumX) / n;
 
     // 找到x的最小值和最大值
-    const minX = Math.min(...data.map((item) => item[0]))
-    const maxX = Math.max(...data.map((item) => item[0]))
+    const minX = Math.min(...data.map((item) => item[0]));
+    const maxX = Math.max(...data.map((item) => item[0]));
 
     // 返回趋势线的两个点
     return [
       [minX, slope * minX + intercept],
       [maxX, slope * maxX + intercept],
-    ]
-  }
+    ];
+  };
 
-  const series = []
+  const series: any[] = [];
 
-  chartData.series.forEach((item, index) => {
+  chartData.series.forEach((item: any, index: number) => {
     // 添加散点
     series.push({
       name: item.name,
-      type: 'scatter',
+      type: "scatter",
       data: item.data,
       symbolSize:
-        showBubbleSize && item.symbolSize
-          ? (value) => value[2] || symbolSize
-          : symbolSize,
+        showBubbleSize && item.symbolSize ? (value: any) => value[2] || symbolSize : symbolSize,
       itemStyle: {
         color: colorConfig[index % colorConfig.length],
       },
       emphasis: {
-        focus: 'series',
+        focus: "series",
         itemStyle: {
           shadowBlur: 10,
-          shadowColor: 'rgba(0, 0, 0, 0.3)',
+          shadowColor: "rgba(0, 0, 0, 0.3)",
         },
       },
-    })
+    });
 
     // 添加趋势线
     if (showTrendLine) {
-      const trendLineData = calculateTrendLine(item.data)
+      const trendLineData = calculateTrendLine(item.data);
       if (trendLineData.length) {
         series.push({
           name: `${item.name} 趋势线`,
-          type: 'line',
+          type: "line",
           data: trendLineData,
           showSymbol: false,
           lineStyle: {
             color: colorConfig[index % colorConfig.length],
-            type: 'dashed',
+            type: "dashed",
           },
-        })
+        });
       }
     }
-  })
+  });
 
   const option = {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     tooltip: {
-      trigger: 'item',
-      formatter: (params) => {
-        if (params.seriesType === 'scatter') {
-          return `${params.seriesName}<br/>${xAxisName}: ${
-            params.value[0]
-          }<br/>${yAxisName}: ${params.value[1]}${
-            params.value[2] ? '<br/>大小: ' + params.value[2] : ''
-          }`
+      trigger: "item",
+      formatter: (params: any) => {
+        if (params.seriesType === "scatter") {
+          return `${params.seriesName}<br/>${xAxisName}: ${params.value[0]}<br/>${yAxisName}: ${
+            params.value[1]
+          }${params.value[2] ? "<br/>大小: " + params.value[2] : ""}`;
         } else {
-          return `${params.seriesName}<br/>${xAxisName}: ${params.value[0]}<br/>${yAxisName}: ${params.value[1]}`
+          return `${params.seriesName}<br/>${xAxisName}: ${params.value[0]}<br/>${yAxisName}: ${params.value[1]}`;
         }
       },
     },
     legend: {
-      data: chartData.series.map((item) => item.name),
+      data: chartData.series.map((item: any) => item.name),
       show: showLegend,
       right: 10,
       top: 10,
       textStyle: {
-        color: '#fff',
+        color: "#fff",
       },
     },
     grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      top: '15%',
+      left: "3%",
+      right: "4%",
+      bottom: "3%",
+      top: "15%",
       containLabel: true,
     },
     xAxis: {
-      type: 'value',
+      type: "value",
       name: xAxisName,
-      nameLocation: 'middle',
+      nameLocation: "middle",
       nameGap: 30,
       nameTextStyle: {
-        color: '#fff',
+        color: "#fff",
       },
       axisLine: {
         lineStyle: {
-          color: '#2867a8',
+          color: "#2867a8",
         },
       },
       axisLabel: {
-        color: '#fff',
+        color: "#fff",
       },
       splitLine: {
         lineStyle: {
-          color: 'rgba(255, 255, 255, 0.1)',
+          color: "rgba(255, 255, 255, 0.1)",
         },
       },
     },
     yAxis: {
-      type: 'value',
+      type: "value",
       name: yAxisName,
-      nameLocation: 'middle',
+      nameLocation: "middle",
       nameGap: 40,
       nameTextStyle: {
-        color: '#fff',
+        color: "#fff",
       },
       axisLine: {
         lineStyle: {
-          color: '#2867a8',
+          color: "#2867a8",
         },
       },
       axisLabel: {
-        color: '#fff',
+        color: "#fff",
       },
       splitLine: {
         lineStyle: {
-          color: 'rgba(255, 255, 255, 0.1)',
+          color: "rgba(255, 255, 255, 0.1)",
         },
       },
     },
     series: series,
     color: colorConfig,
-    animationEasing: 'elasticOut',
-    animationDelayUpdate: function (idx) {
-      return idx * 5
+    animationEasing: "elasticOut",
+    animationDelayUpdate: function (idx: number) {
+      return idx * 5;
     },
-  }
+  };
 
-  return (
-    <ChartBase
-      title={title}
-      option={option}
-      id="chart_scatter"
-      {...restProps}
-    />
-  )
-}
+  return <ChartBase title={title} option={option} id="chart_scatter" {...restProps} />;
+};
 
-export default BasicScatter
-
-
-
+export default BasicScatter;

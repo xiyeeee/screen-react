@@ -1,10 +1,3 @@
-/*
- * @Author: luomingxi
- * @Date: 2025-06-20 12:21:25
- * @Description:
- * @LastEditors: luomingxi
- * @LastEditTime: 2025-07-28 15:15:10
- */
 import * as echarts from "echarts";
 import { useEffect, useRef } from "react";
 import styles from "./index.less";

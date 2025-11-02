@@ -1,11 +1,3 @@
-/*
- * @Author: luomingxi
- * @Date: 2025-06-25 09:50:00
- * @Description: 数量卡片组件
- * @LastEditors: luomingxi
- * @LastEditTime: 2025-07-08 09:06:51
- */
-
 import React from "react";
 import numberBg from "./assets/numberBg.png";
 import numberFooter from "./assets/numberFooter.png";
@@ -16,7 +8,7 @@ interface Props {
 }
 
 const NumberCard: React.FC<Props> = (props) => {
-  const { title = "上电设备数量", number = 999, unit = "个", className = "", style = {} } = props;
+  const { title = "数量", number = 999, unit = "个", className = "", style = {} } = props;
 
   return (
     <div className={`${styles.container} ${className}`} style={style}>
@@ -46,5 +38,3 @@ const NumberCard: React.FC<Props> = (props) => {
 };
 
 export default NumberCard;
-
-

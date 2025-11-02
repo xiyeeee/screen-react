@@ -1,49 +1,49 @@
 import ChartBase from "@/components/ChartBase";
 import * as echarts from "echarts";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 const mockData = [
   {
-    name: "织机1",
+    name: "类型1",
     value: 38,
   },
   {
-    name: "织机2",
+    name: "类型2",
     value: 15,
   },
   {
-    name: "织机3",
+    name: "类型3",
     value: 27,
   },
   {
-    name: "织机4",
+    name: "类型4",
     value: 49,
   },
   {
-    name: "织机5",
+    name: "类型5",
     value: 22,
   },
   {
-    name: "织机6",
+    name: "类型6",
     value: 33,
   },
   {
-    name: "织机7",
+    name: "类型7",
     value: 11,
   },
   {
-    name: "织机8",
+    name: "类型8",
     value: 45,
   },
   {
-    name: "织机9",
+    name: "类型9",
     value: 29,
   },
   {
-    name: "织机10",
+    name: "类型10",
     value: 17,
   },
   {
-    name: "织机11",
+    name: "类型11",
     value: 36,
   },
 ];
@@ -62,7 +62,7 @@ const StatisticsPictorialBar: React.FC<Props> = (props) => {
 
   // 状态管理 - 添加滚动相关状态
   const [currentIndex, setCurrentIndex] = useState(0);
-  const getCurrentPageData = (startIndex) => {
+  const getCurrentPageData = (startIndex: any) => {
     const currentPageData = [];
     for (let i = 0; i < displayCount; i++) {
       const index = (startIndex + i) % data.length;
@@ -122,7 +122,7 @@ const StatisticsPictorialBar: React.FC<Props> = (props) => {
       axisPointer: {
         type: "shadow",
       },
-      formatter: function (params) {
+      formatter: function (params: any) {
         return params[0].name + ": " + params[0].value;
       },
     },
@@ -209,6 +209,3 @@ const StatisticsPictorialBar: React.FC<Props> = (props) => {
 };
 
 export default StatisticsPictorialBar;
-
-
-

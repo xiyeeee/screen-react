@@ -20,8 +20,8 @@ export const chartList = [
   },
   {
     key: "GlobalBusinessMap",
-    name: "三毛工厂地图",
-    description: "三毛工厂地图",
+    name: "xxx工厂地图",
+    description: "xxx工厂地图",
     category: "map",
     position: "components/Map/GlobalBusinessMap",
     component: GlobalBusinessMap,
@@ -37,7 +37,7 @@ export const chartList = [
   {
     key: "ChinaMapSanMao",
     name: "中国地图",
-    description: "中国地图可视化(三毛工厂地图)",
+    description: "中国地图可视化(xxx工厂地图)",
     position: "components/Map/ChinaMapSanMao",
     category: "map",
     component: ChinaMapSanMao,

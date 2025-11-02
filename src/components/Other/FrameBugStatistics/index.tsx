@@ -1,55 +1,55 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import bugImg from "./assets/xsgztj.png";
 import styles from "./index.module.less";
 
 // 测试数据
 const mockData = [
   {
-    faultName: "前胶辊损伤",
+    faultName: "问题1",
     capacity: 12,
   },
   {
-    faultName: "上销弹簧失压  ",
+    faultName: "问题2",
     capacity: 26,
   },
   {
-    faultName: "锭尖磨损",
+    faultName: "问题3",
     capacity: 6,
   },
   {
-    faultName: "卷布辊停转",
+    faultName: "问题4",
     capacity: 9,
   },
   {
-    faultName: "盘运输卡顿",
+    faultName: "问题5",
     capacity: 32,
   },
   {
-    faultName: "抓管器损坏",
+    faultName: "问题6",
     capacity: 17,
   },
   {
-    faultName: "锭子断锭杆",
+    faultName: "问题7",
     capacity: 17,
   },
   {
-    faultName: "锭脚漏油",
+    faultName: "问题8",
     capacity: 17,
   },
   {
-    faultName: "集体落纱卡管",
+    faultName: "问题9",
     capacity: 17,
   },
   {
-    faultName: "气架定位偏差",
+    faultName: "问题10",
     capacity: 17,
   },
   {
-    faultName: "罗拉头断裂",
+    faultName: "问题11",
     capacity: 17,
   },
   {
-    faultName: "油污纱",
+    faultName: "问题12",
     capacity: 17,
   },
 ];
@@ -81,19 +81,36 @@ const staticPositionList = [
   },
 ];
 
-const FrameBugStatistics = ({
+// 类型定义
+interface BugDataItem {
+  name: string;
+  value: number;
+  isEmpty?: boolean;
+  position?: {
+    top?: string;
+    left?: string;
+    bottom?: string;
+    right?: string;
+  };
+}
+
+interface FrameBugStatisticsProps {
+  data?: BugDataItem[];
+}
+
+const FrameBugStatistics: React.FC<FrameBugStatisticsProps> = ({
   data = mockData.map((item) => ({ name: item.faultName, value: item.capacity })),
 }) => {
   const itemsPerPage = 6; // 每页显示6个数据
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentData, setCurrentData] = useState([]);
-  const [isLeaving, setIsLeaving] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentData, setCurrentData] = useState<BugDataItem[]>([]);
+  const [isLeaving, setIsLeaving] = useState<boolean>(false);
 
   // 获取当前显示的数据，并为每个数据项分配位置
-  const getCurrentPageData = (startIndex) => {
+  const getCurrentPageData = (startIndex: number): BugDataItem[] => {
     const actualData = data.slice(startIndex, startIndex + itemsPerPage);
     // 如果数据不足itemsPerPage，补充空数据
-    const filledData = [...actualData];
+    const filledData: BugDataItem[] = [...actualData];
     while (filledData.length < itemsPerPage) {
       filledData.push({
         name: "",
@@ -164,5 +181,3 @@ const FrameBugStatistics = ({
 };
 
 export default FrameBugStatistics;
-
-

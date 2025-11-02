@@ -1,6 +1,5 @@
-import React, { useMemo } from "react";
 import ChartBase from "@/components/ChartBase";
-import { Empty } from "antd";
+import { useMemo } from "react";
 const initdata = [
   {
     productionTime: "2025-01",

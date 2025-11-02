@@ -15,31 +15,31 @@ interface Props {
 const LoomRuntimeRatio: React.FC<Props> = (props) => {
   const { data } = props;
 
-  const columns = [
+  const columns: any = [
     {
-      title: "设备名称",
+      title: "名称",
       dataIndex: "equipmentName",
       key: "equipmentName",
       width: "25%",
-      render: (text) => {
+      render: (text: any) => {
         return `<span style="font-size: 14px; color: #fff">${text}</span>`;
       },
     },
     {
-      title: "所属产线",
+      title: "所属",
       dataIndex: "productionLine",
       key: "productionLine",
       width: "25%",
-      render: (text) => {
+      render: (text: any) => {
         return `<span style="color: #fff">${text}</span>`;
       },
     },
     {
-      title: "产能",
+      title: "值",
       dataIndex: "productivity",
       key: "productivity",
       width: "25%",
-      render: (text, record) => {
+      render: (text: any, record: any) => {
         if (record.isEmpty) {
           return "";
         }
@@ -47,11 +47,11 @@ const LoomRuntimeRatio: React.FC<Props> = (props) => {
       },
     },
     {
-      title: "运行时长占比",
+      title: "占比",
       dataIndex: "runtimePercentage",
       key: "runtimePercentage",
       width: "25%",
-      render: (text, record) => {
+      render: (text: any, record: any) => {
         // 根据占比设置不同颜色
         const runtimePercentage = Number(text);
         let color = "#52c41a"; // 默认绿色
@@ -82,5 +82,3 @@ const LoomRuntimeRatio: React.FC<Props> = (props) => {
 };
 
 export default LoomRuntimeRatio;
-
-

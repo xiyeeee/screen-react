@@ -1,13 +1,30 @@
-import React, { useState } from "react";
-import * as echarts from "echarts";
 import ChartBase from "@/components/ChartBase";
+import * as echarts from "echarts";
+import { useState } from "react";
 import styles from "./index.less";
 
-const ScanRadius = () => {
-  const [val, setVal] = useState(0);
+// 类型定义
+interface ScanRadiusProps {
+  [key: string]: any;
+}
 
-  const getOption = () => {
-    const arrData = [
+interface DataItem {
+  value: number;
+  name?: string;
+  itemStyle?: {
+    normal?: {
+      color?: string | any;
+      borderColor?: string;
+      borderWidth?: number;
+    };
+  };
+}
+
+const ScanRadius: React.FC<ScanRadiusProps> = () => {
+  const [val, setVal] = useState<number>(0);
+
+  const getOption = (): echarts.EChartsOption => {
+    const arrData: DataItem[] = [
       {
         value: 3,
         name: "区块链",
@@ -100,7 +117,7 @@ const ScanRadius = () => {
       },
     ];
 
-    let totalVal = 0;
+    let totalVal: number = 0;
     for (let i = 0; i < arrData.length; i++) {
       totalVal += arrData[i].value;
     }
@@ -115,7 +132,7 @@ const ScanRadius = () => {
       },
     });
 
-    const arrData2 = [
+    const arrData2: DataItem[] = [
       {
         value: 10,
         itemStyle: {
@@ -136,7 +153,7 @@ const ScanRadius = () => {
       },
     ];
 
-    const tooltip = {
+    const tooltip: echarts.TooltipComponentOption = {
       formatter: " ",
       backgroundColor: "rgba(0, 0, 0, 0)",
     };
@@ -303,7 +320,7 @@ const ScanRadius = () => {
           data: arrData2,
         },
       ],
-    };
+    } as echarts.EChartsOption;
   };
 
   const option = getOption();
@@ -338,5 +355,3 @@ const ScanRadius = () => {
 };
 
 export default ScanRadius;
-
-

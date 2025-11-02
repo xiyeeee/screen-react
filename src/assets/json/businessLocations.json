@@ -1,0 +1,75 @@
+{
+  "headquarters": {
+    "name": "xx有限公司",
+    "coord": [103.834303, 36.061089],
+    "type": "headquarters"
+  },
+  "branches": [
+    {
+      "name": "加拿大",
+      "coord": [-106.346771, 56.130366],
+      "type": "branch",
+      "labelPosition": "right"
+    },
+    {
+      "name": "美国",
+      "coord": [-95.712891, 37.09024],
+      "type": "branch",
+      "labelPosition": "right"
+    },
+    {
+      "name": "南美洲",
+      "coord": [-58.381559, -14.235004],
+      "type": "branch",
+      "labelPosition": "right"
+    },
+    {
+      "name": "非洲",
+      "coord": [17.873887, 0.228021],
+      "type": "branch",
+      "labelPosition": "top"
+    },
+    {
+      "name": "欧洲",
+      "coord": [10.451526, 54.525961],
+      "type": "branch",
+      "labelPosition": "right"
+    },
+    {
+      "name": "中亚",
+      "coord": [64.585262, 41.377491],
+      "type": "branch",
+      "labelPosition": "top"
+    },
+    {
+      "name": "俄罗斯",
+      "coord": [105.318756, 61.52401],
+      "type": "branch",
+      "labelPosition": "right"
+    },
+    {
+      "name": "日本",
+      "coord": [138.252924, 36.204824],
+      "type": "branch",
+      "labelPosition": "bottom"
+    },
+    {
+      "name": "南亚",
+      "coord": [78.96288, 20.593684],
+      "type": "branch",
+      "labelPosition": "bottom"
+    },
+    {
+      "name": "东南亚",
+      "coord": [101.975766, 4.210484],
+      "type": "branch",
+      "labelPosition": "bottom"
+    },
+    {
+      "name": "澳大利亚",
+      "coord": [133.775136, -25.274398],
+      "type": "branch",
+      "labelPosition": "left"
+    }
+  ]
+}

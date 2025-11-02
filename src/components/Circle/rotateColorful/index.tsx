@@ -1,6 +1,5 @@
-import React from "react";
-import * as echarts from "echarts";
 import ChartBase from "@/components/ChartBase";
+import * as echarts from "echarts";
 import styles from "./index.less";
 
 const RotateColorful = () => {
@@ -144,4 +143,3 @@ const RotateColorful = () => {
 };
 
 export default RotateColorful;
-

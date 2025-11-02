@@ -1,13 +1,5 @@
-import React from "react";
-/*
- * @Author: luomingxi
- * @Date: 2025-06-28 15:50:50
- * @Description:
- * @LastEditors: luomingxi
- * @LastEditTime: 2025-07-31 11:32:10
- */
-import LoomCapacityTrendTable from "./LoomCapacityTrendTable";
 import CustomRowTableList from "./CustomRowTableList";
+import LoomCapacityTrendTable from "./LoomCapacityTrendTable";
 export const chartList = [
   {
     key: "LoomCapacityTrendTable",
@@ -28,4 +20,3 @@ export const chartList = [
     isChart: false,
   },
 ];
-

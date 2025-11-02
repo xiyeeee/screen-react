@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
 import * as echarts from "echarts";
-import "@/components/Map/world.js"; // 导入世界地图数据
-import styles from "./index.module.less";
+import { useEffect, useRef } from "react";
 import bluePosition from "./assets/bluePosition.png";
-import yellowPosition from "./assets/yellowPosition.png";
 import titleBg from "./assets/titlebg.png";
+import yellowPosition from "./assets/yellowPosition.png";
+import worldJson from "@/assets/json/worldGeo.json"; // 导入世界地图数据
+import styles from "./index.module.less";
 
 const GlobalBusinessMap = () => {
   const chartRef = useRef(null);
@@ -14,7 +14,7 @@ const GlobalBusinessMap = () => {
   const businessLocations = {
     // 兰州（公司总部）
     headquarters: {
-      name: "兰州三毛实业有限公司",
+      name: "xx有限公司",
       coord: [103.834303, 36.061089], // 兰州坐标
       type: "headquarters",
     },
@@ -108,7 +108,7 @@ const GlobalBusinessMap = () => {
             if (params.data.type === "headquarters") {
               return `<div style="padding: 8px;">
                 <div style="color: #ff4757; font-weight: bold;">
-                  兰州三毛实业有限公司
+                  xx有限公司
                 </div>
               </div>`;
             } else {
@@ -238,7 +238,7 @@ const GlobalBusinessMap = () => {
           label: {
             show: true,
             position: "left",
-            formatter: "{companyName|兰州三毛实业有限公司}",
+            formatter: "{companyName|xx有限公司}",
             rich: {
               companyName: {
                 color: "#ffffff",
@@ -298,6 +298,11 @@ const GlobalBusinessMap = () => {
     // 初始化图表
     chartInstance.current = echarts.init(chartRef.current);
 
+    // 注册世界地图
+    try {
+      echarts.registerMap("world", worldJson as any);
+    } catch (e) {}
+
     // 设置配置
     const option = getChartOption();
     chartInstance.current.setOption(option);
@@ -323,5 +328,3 @@ const GlobalBusinessMap = () => {
 };
 
 export default GlobalBusinessMap;
-
-

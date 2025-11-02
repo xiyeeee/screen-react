@@ -1,22 +1,14 @@
-import React from "react";
-/*
- * @Author: luomingxi
- * @Date: 2025-06-28 10:53:45
- * @Description:
- * @LastEditors: luomingxi
- * @LastEditTime: 2025-07-08 09:04:47
- */
 import BasicBar from "./BasicBar";
-import StackBar from "./stackBar";
 import CompanySummary from "./companySummary/Business";
-import SzBar from "./SzBar";
-import PyramidTrend from "./PyramidTrend";
+import HorizontalAngledBarChart from "./HorizontalAngledBarChart";
 import HorizontalBarChart from "./HorizontalBarChart";
 import PowerStackBar from "./PowerStackBar";
-import HorizontalAngledBarChart from "./HorizontalAngledBarChart";
 import PowerStackBarRefresh from "./PowerStackBarRefresh";
+import PyramidTrend from "./PyramidTrend";
 import ScrollBarChart from "./scrollBarChart";
+import StackBar from "./stackBar";
 import StockDetailsBar from "./StockDetailsBar";
+import SzBar from "./SzBar";
 export const chartList = [
   {
     key: "BasicBar",
@@ -76,16 +68,16 @@ export const chartList = [
   },
   {
     key: "PowerStackBar",
-    name: "三毛工厂产能堆叠柱状图",
-    description: "三毛工厂产能堆叠柱状图",
+    name: "xxx工厂产能堆叠柱状图",
+    description: "xxx工厂产能堆叠柱状图",
     category: "bar",
     position: "components/Bar/PowerStackBar",
     component: PowerStackBar,
   },
   {
     key: "PowerStackBarRefresh",
-    name: "三毛工厂产能堆叠柱状图动态更新",
-    description: "三毛工厂产能堆叠柱状图 , 可轮播 , 已对接接口数据",
+    name: "xxx工厂产能堆叠柱状图动态更新",
+    description: "xxx工厂产能堆叠柱状图 , 可轮播 , 已对接接口数据",
     category: "bar",
     position: "components/Bar/PowerStackBarRefresh",
     component: PowerStackBarRefresh,
@@ -107,4 +99,3 @@ export const chartList = [
     component: StockDetailsBar,
   },
 ];
-

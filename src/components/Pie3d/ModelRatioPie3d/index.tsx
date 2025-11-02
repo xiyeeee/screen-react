@@ -1,70 +1,8 @@
 import React from "react";
-/*
- * @Author: luomingxi
- * @Date: 2025-06-24 17:38:55
- * @Description: 占比3d图
- * @LastEditors: luomingxi
- * @LastEditTime: 2025-07-08 09:07:35
- */
 
 import ChartBase from "@/components/ChartBase";
 import ratioFooterImg from "./assets/ratioFooter.png";
 import styles from "./index.module.less";
-
-/*************************
-pie3D 尝试
-使用组件: grid3D、xAxis3D、yAxis3D、zAxis3D、surface
-
-*************************
-【 getParametricEquation 函数说明 】 :
-*************************
-    根据传入的
-    startRatio（浮点数）: 当前扇形起始比例，取值区间 [0, endRatio)
-    endRatio（浮点数）: 当前扇形结束比例，取值区间 (startRatio, 1]
-    isSelected（布尔值）:是否选中，效果参照二维饼图选中效果（单选）
-    isHovered（布尔值）: 是否放大，效果接近二维饼图高亮（放大）效果（未能实现阴影）
-
-    生成 3D 扇形曲面
-
-*************************
-【 getPie3D 函数说明 】 :
-*************************
-    根据传入的饼图数据，生成模拟 3D 饼图的配置项 option
-
-    饼图数据格式示意：
-    [{
-        name: '数据1',
-        value: 10
-    }, {
-        // 数据项名称
-        name: '数据2',
-        value : 56,
-        itemStyle:{
-            // 透明度
-            opacity: 0.5,
-            // 扇形颜色
-            color: 'green'
-        }
-    }]
-
-*************************
-【 鼠标事件监听说明 】 :
-*************************
-    click： 实现饼图的选中效果（单选）
-            大致思路是，通过监听点击事件，获取到被点击数据的系列序号 params.seriesIndex，
-            然后将对应扇形向外/向内移动 10% 的距离。
-
-    mouseover： 近似实现饼图的高亮（放大）效果
-            大致思路是，在饼图外部套一层透明的圆环，然后监听 mouseover 事件，获取
-            到对应数据的系列序号 params.seriesIndex 或系列名称 params.seriesName，
-            如果鼠标移到了扇形上，则先取消高亮之前的扇形（如果有）,再高亮当前扇形；
-            如果鼠标移到了透明圆环上，则只取消高亮之前的扇形（如果有），不做任何高亮。
-
-    globalout： 当鼠标移动过快，直接划出图表区域时，有可能监听不到透明圆环的 mouseover，
-            导致此前高亮没能取消，所以补充了对 globalout 的监听。
-
-
-*************************/
 
 interface Props {
   [key: string]: any;
@@ -74,15 +12,15 @@ const ModelRatioPie3d: React.FC<Props> = (props) => {
   const {
     chartData = [
       {
-        name: "织机01型号",
+        name: "机器01型号",
         value: 134,
       },
       {
-        name: "织机02型号",
+        name: "机器02型号",
         value: 56,
       },
       {
-        name: "织机03型号",
+        name: "机器03型号",
         value: 57,
       },
     ],
@@ -98,7 +36,14 @@ const ModelRatioPie3d: React.FC<Props> = (props) => {
   } = props;
 
   // 生成扇形的曲面参数方程，用于 series-surface.parametricEquation
-  function getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, h) {
+  function getParametricEquation(
+    startRatio: number,
+    endRatio: number,
+    isSelected: boolean,
+    isHovered: boolean,
+    k: number,
+    h: number,
+  ) {
     // 计算
     const midRatio = (startRatio + endRatio) / 2;
 
@@ -135,7 +80,7 @@ const ModelRatioPie3d: React.FC<Props> = (props) => {
         step: Math.PI / 20,
       },
 
-      x: function (u, v) {
+      x: function (u: number, v: number) {
         if (u < startRadian) {
           return offsetX + Math.cos(startRadian) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
         }
@@ -145,7 +90,7 @@ const ModelRatioPie3d: React.FC<Props> = (props) => {
         return offsetX + Math.cos(u) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
       },
 
-      y: function (u, v) {
+      y: function (u: number, v: number) {
         if (u < startRadian) {
           return offsetY + Math.sin(startRadian) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
         }
@@ -155,7 +100,7 @@ const ModelRatioPie3d: React.FC<Props> = (props) => {
         return offsetY + Math.sin(u) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
       },
 
-      z: function (u, v) {
+      z: function (u: number, v: number) {
         if (u < -Math.PI * 0.5) {
           return Math.sin(u);
         }
@@ -168,8 +113,8 @@ const ModelRatioPie3d: React.FC<Props> = (props) => {
   }
 
   // 生成模拟 3D 饼图的配置项
-  function getPie3D(pieData, internalDiameterRatio) {
-    const series = [];
+  function getPie3D(pieData: any[], internalDiameterRatio: number) {
+    const series: any[] = [];
     let sumValue = 0;
     let startValue = 0;
     let endValue = 0;
@@ -183,7 +128,7 @@ const ModelRatioPie3d: React.FC<Props> = (props) => {
     for (let i = 0; i < pieData.length; i++) {
       sumValue += pieData[i].value;
 
-      const seriesItem = {
+      const seriesItem: any = {
         name: typeof pieData[i].name === "undefined" ? `series${i}` : pieData[i].name,
         type: "surface",
         parametric: true,
@@ -199,7 +144,7 @@ const ModelRatioPie3d: React.FC<Props> = (props) => {
       };
 
       if (typeof pieData[i].itemStyle !== "undefined") {
-        const itemStyle = {};
+        const itemStyle: any = {};
 
         typeof pieData[i].itemStyle.color !== "undefined"
           ? (itemStyle.color = pieData[i].itemStyle.color)
@@ -241,7 +186,7 @@ const ModelRatioPie3d: React.FC<Props> = (props) => {
       animation: true,
       tooltip: {
         show: true,
-        formatter: (params) => {
+        formatter: (params: any) => {
           if (params.seriesType === "surface") {
             const pieData = series[params.seriesIndex]?.pieData;
             if (pieData) {
@@ -288,7 +233,7 @@ const ModelRatioPie3d: React.FC<Props> = (props) => {
   }
 
   // 处理数据
-  const serData = chartData.map((dItem, index) => {
+  const serData = chartData.map((dItem: any, index: number) => {
     return {
       ...dItem,
       value: Number(dItem.value),
@@ -303,8 +248,8 @@ const ModelRatioPie3d: React.FC<Props> = (props) => {
   const option = getPie3D(serData, 0.7);
 
   // 计算百分比数据用于自定义图例
-  const totalValue = serData.reduce((sum, item) => sum + item.value, 0);
-  const legendData = serData.map((item, index) => {
+  const totalValue = serData.reduce((sum: any, item: any) => sum + item.value, 0);
+  const legendData = serData.map((item: any, index: number) => {
     // 前面的项正常计算百分比
     if (index < serData.length - 1) {
       return {
@@ -314,7 +259,7 @@ const ModelRatioPie3d: React.FC<Props> = (props) => {
       };
     } else {
       // 最后一项用100%减去前面所有项的百分比
-      const previousSum = serData.slice(0, index).reduce((sum, prevItem) => {
+      const previousSum = serData.slice(0, index).reduce((sum: number, prevItem: any) => {
         const prevPercentage = parseFloat(((prevItem.value / totalValue) * 100).toFixed(1));
         return sum + prevPercentage;
       }, 0);
@@ -343,7 +288,7 @@ const ModelRatioPie3d: React.FC<Props> = (props) => {
 
       {/* 自定义图例层 */}
       <div className={styles.legendLayer}>
-        {legendData.map((item, index) => (
+        {legendData.map((item: any, index: number) => (
           <div key={item.name} className={styles.legendItem}>
             <div className={styles.legendContent}>
               <div className={styles.legendIcon} style={{ backgroundColor: item.color }} />

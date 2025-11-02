@@ -8,7 +8,7 @@ import yellowPosition from "../GlobalBusinessMap/assets/yellowPosition.png";
 const ChinaMap = () => {
   // 兰州总部坐标
   const headquarters = {
-    name: "兰州三毛实业有限公司",
+    name: "xx有限公司",
     coord: [103.834303, 36.061089], // 兰州坐标
   };
 
@@ -198,7 +198,7 @@ const ChinaMap = () => {
           if (params.data.type === "headquarters") {
             return `<div style="padding: 8px;">
                 <div style="color: #ff4757; font-weight: bold;">
-                  兰州三毛实业有限公司
+                  xx有限公司
                 </div>
               </div>`;
           } else {
@@ -324,7 +324,7 @@ const ChinaMap = () => {
           show: true,
           position: "left",
           offset: [15, -10],
-          formatter: "{companyName|兰州三毛实业有限公司}",
+          formatter: "{companyName|xx有限公司}",
           rich: {
             companyName: {
               color: "#ffffff",

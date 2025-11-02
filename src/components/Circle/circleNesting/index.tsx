@@ -3,8 +3,17 @@ import * as echarts from "echarts";
 import ChartBase from "@/components/ChartBase";
 import styles from "./index.less";
 
-const CircleNesting = () => {
-  const option = {
+// 类型定义
+interface CircleNestingProps {
+  [key: string]: any;
+}
+
+interface ProcessedData {
+  [key: string]: any;
+}
+
+const CircleNesting: React.FC<CircleNestingProps> = () => {
+  const option: echarts.EChartsOption = {
     color: ["#5d8ef8", "#638bfd", "#1dd1c1"],
     series: [
       {
@@ -57,7 +66,7 @@ const CircleNesting = () => {
             show: true,
             fontSize: 16,
             lineHeight: 22,
-            formatter: (param) => {
+            formatter: (param: any) => {
               return param.name + "\n" + param.value + "%";
             },
           },
@@ -106,7 +115,7 @@ const CircleNesting = () => {
             show: true,
             fontSize: 16,
             lineHeight: 22,
-            formatter: (param) => {
+            formatter: (param: any) => {
               return param.name + "\n" + param.value + "%";
             },
           },

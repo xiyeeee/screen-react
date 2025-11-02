@@ -1,14 +1,25 @@
-/*
- * @Author: AI Assistant
- * @Date: 2025-01-18
- * @Description: 带滚动功能的3D服装库存柱状图组件
- */
-import React, { useState, useEffect } from "react";
 import ChartBase from "@/components/ChartBase";
 import * as echarts from "echarts";
+import React, { useEffect, useState } from "react";
+
+// 类型定义
+interface ClothDataItem {
+  name: string;
+  value: number;
+  isEmpty?: boolean;
+}
+
+interface ClothStockDetailBarProps {
+  data?: ClothDataItem[];
+  backgroundColor?: string;
+  itemsPerPage?: number;
+  autoScroll?: boolean;
+  scrollInterval?: number;
+  [key: string]: any;
+}
 
 // 🧪 模拟服装库存数据
-const templateData = [
+const templateData: ClothDataItem[] = [
   { name: "连衣裙", value: 3567 },
   { name: "衬衫", value: 1645 },
   { name: "T恤", value: 2760 },
@@ -26,11 +37,7 @@ const templateData = [
   { name: "针织衫", value: 1366 },
 ];
 
-interface Props {
-  [key: string]: any;
-}
-
-const ClothStockDetailBar: React.FC<Props> = (props) => {
+const ClothStockDetailBar: React.FC<ClothStockDetailBarProps> = (props) => {
   const {
     data = templateData,
     backgroundColor = "transparent",
@@ -41,14 +48,14 @@ const ClothStockDetailBar: React.FC<Props> = (props) => {
   } = props;
 
   // 🔄 状态管理
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [chartData, setChartData] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [chartData, setChartData] = useState<ClothDataItem[]>([]);
 
   // 📊 3D立方体参数配置
-  const wid = 20; // 从30减小到20，让柱子变小
-  const w1 = Math.sin(Math.PI / 6) * wid; // ~10
-  const w2 = Math.sin(Math.PI / 3) * wid; // ~17.3
-  const snapHeight = wid / 2;
+  const wid: number = 20; // 从30减小到20，让柱子变小
+  const w1: number = Math.sin(Math.PI / 6) * wid; // ~10
+  const w2: number = Math.sin(Math.PI / 3) * wid; // ~17.3
+  const snapHeight: number = wid / 2;
 
   // 🎨 绘制左侧面
   const CubeLeft = echarts.graphic.extendShape({
@@ -56,7 +63,7 @@ const ClothStockDetailBar: React.FC<Props> = (props) => {
       x: 0,
       y: 0,
     },
-    buildPath: function (ctx, shape) {
+    buildPath: function (ctx: any, shape: any) {
       const xAxisPoint = shape.xAxisPoint;
       const c0 = [shape.x, shape.y];
       const c1 = [shape.x - w2, shape.y];
@@ -77,7 +84,7 @@ const ClothStockDetailBar: React.FC<Props> = (props) => {
       x: 0,
       y: 0,
     },
-    buildPath: function (ctx, shape) {
+    buildPath: function (ctx: any, shape: any) {
       const xAxisPoint = shape.xAxisPoint;
       const c1 = [shape.x, shape.y];
       const c2 = [shape.x, xAxisPoint[1]];
@@ -98,7 +105,7 @@ const ClothStockDetailBar: React.FC<Props> = (props) => {
       x: 0,
       y: 0,
     },
-    buildPath: function (ctx, shape) {
+    buildPath: function (ctx: any, shape: any) {
       const c1 = [shape.x, shape.y];
       const c2 = [shape.x + w1, shape.y - w2 + snapHeight]; // 右点
       const c3 = [shape.x - w2 + w1, shape.y - w2 + snapHeight];
@@ -118,12 +125,12 @@ const ClothStockDetailBar: React.FC<Props> = (props) => {
   echarts.graphic.registerShape("ClothCubeTop", CubeTop);
 
   // 📈 获取当前显示的数据
-  const getCurrentPageData = (startIndex) => {
+  const getCurrentPageData = (startIndex: number): ClothDataItem[] => {
     const endIndex = startIndex + itemsPerPage;
     const actualData = data.slice(startIndex, endIndex);
 
     // 如果数据不足itemsPerPage个，用空数据填充
-    const filledData = [...actualData];
+    const filledData: ClothDataItem[] = [...actualData];
     while (filledData.length < itemsPerPage) {
       filledData.push({
         name: "",
@@ -162,10 +169,10 @@ const ClothStockDetailBar: React.FC<Props> = (props) => {
   }, [data, autoScroll, scrollInterval, itemsPerPage]);
 
   // 📊 数据提取
-  const chartNames = chartData.map((item) => item.name);
-  const chartValues = chartData.map((item) => item.value);
+  const chartNames: string[] = chartData.map((item) => item.name);
+  const chartValues: number[] = chartData.map((item) => item.value);
 
-  const option = {
+  const option: echarts.EChartsOption = {
     backgroundColor: backgroundColor,
     // 📊 图例配置
     legend: {
@@ -199,7 +206,7 @@ const ClothStockDetailBar: React.FC<Props> = (props) => {
         color: "#CFE3FC",
       },
       borderWidth: 1,
-      formatter: function (params) {
+      formatter: function (params: any) {
         if (params && params.length > 0) {
           const param = params[0];
           if (chartData[param.dataIndex]?.isEmpty) {
@@ -287,7 +294,7 @@ const ClothStockDetailBar: React.FC<Props> = (props) => {
           fontSize: 14,
           color: "#fff",
           offset: [0, -15],
-          formatter: function (params) {
+          formatter: function (params: any) {
             // 如果是空数据，不显示标签
             return chartData[params.dataIndex]?.isEmpty ? "" : params.value;
           },
@@ -307,14 +314,14 @@ const ClothStockDetailBar: React.FC<Props> = (props) => {
         // 3D立方体
         name: "库存总量",
         type: "custom",
-        renderItem: (params, api) => {
+        renderItem: (params: any, api: any) => {
           // 如果是空数据，不渲染
           if (chartData[params.dataIndex]?.isEmpty) {
             return { type: "group", children: [] };
           }
 
-          const location = api.coord([api.value(0), api.value(1)]);
-          const xlocation = api.coord([api.value(0), 0]);
+          const location: number[] = api.coord([api.value(0), api.value(1)]);
+          const xlocation: number[] = api.coord([api.value(0), 0]);
 
           return {
             type: "group",
@@ -396,13 +403,10 @@ const ClothStockDetailBar: React.FC<Props> = (props) => {
         animationEasing: "cubicOut",
         animationDelay: 0,
       },
-    ],
+    ] as any,
   };
 
   return <ChartBase option={option} id="cloth_stock_detail_bar" {...restProps} />;
 };
 
 export default ClothStockDetailBar;
-
-
-

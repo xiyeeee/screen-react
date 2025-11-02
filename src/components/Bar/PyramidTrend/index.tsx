@@ -3,9 +3,23 @@ import * as echarts from "echarts";
 import ChartBase from "@/components/ChartBase";
 import styles from "./index.less";
 
-const PyramidTrend = () => {
-  const dataFormatter = (obj) => {
-    const pList = [
+// 类型定义
+interface DataItem {
+  name: string;
+  value: number;
+}
+
+interface ProcessedData {
+  [key: string]: DataItem[] | number | string;
+}
+
+interface PyramidTrendProps {
+  [key: string]: any;
+}
+
+const PyramidTrend: React.FC<PyramidTrendProps> = () => {
+  const dataFormatter = (obj: { [key: string]: number[] }): ProcessedData => {
+    const pList: string[] = [
       "长沙",
       "湘潭",
       "株洲",
@@ -21,10 +35,10 @@ const PyramidTrend = () => {
       "常德",
       "永州",
     ];
-    let temp;
+    let temp: number[];
     for (let x = 0; x < 3; x++) {
-      let max = 0;
-      let sum = 0;
+      let max: number = 0;
+      let sum: number = 0;
       temp = obj[x];
       for (let i = 0, l = temp.length; i < l; i++) {
         max = Math.max(max, temp[i]);
@@ -40,18 +54,18 @@ const PyramidTrend = () => {
     return obj;
   };
 
-  const dataMap = dataFormatter({
+  const dataMap: ProcessedData = dataFormatter({
     2: [124, 145, 261, 54, 195, 131, 150, 39, 11, 40, 23, 51, 45, 88],
     1: [136, 159, 205, 41, 306, 7, 77, 101, 24, 34, 8, 15, 14, 9],
     0: [118, 128, 220, 47, 92, 14, 9, 11, 113, 61, 11, 22, 33, 5],
   });
 
-  const itemStyle = {
+  const itemStyle: echarts.BarSeriesOption["itemStyle"] = {
     barBorderRadius: [15, 0],
     color: "#0084ff",
   };
 
-  const option = {
+  const option: echarts.EChartsOption = {
     baseOption: {
       timeline: {
         axisType: "category",

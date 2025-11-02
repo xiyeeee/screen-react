@@ -1,11 +1,3 @@
-/*
- * @Author: luomingxi
- * @Date: 2025-06-25 14:50:17
- * @Description:
- * @LastEditors: luomingxi
- * @LastEditTime: 2025-07-08 09:07:57
- */
-import React from "react";
 import BaseScrollTable from "@/components/Table/BaseScrollTable";
 import styles from "./index.module.less";
 
@@ -13,46 +5,46 @@ const LoomRuntimeRatio = () => {
   // 🎯 新的key-value格式数据
   const tableData = [
     {
-      deviceName: "织机01",
+      deviceName: "内容01",
       productionLine: "产线01",
       capacity: 100,
       ratio: 95,
     },
-    { deviceName: "织机02", productionLine: "产线02", capacity: 92, ratio: 90 },
-    { deviceName: "织机03", productionLine: "产线03", capacity: 58, ratio: 55 },
-    { deviceName: "织机04", productionLine: "产线04", capacity: 46, ratio: 45 },
-    { deviceName: "织机05", productionLine: "产线05", capacity: 6, ratio: 5 },
-    { deviceName: "织机06", productionLine: "产线06", capacity: 85, ratio: 80 },
-    { deviceName: "织机07", productionLine: "产线07", capacity: 72, ratio: 70 },
-    { deviceName: "织机08", productionLine: "产线08", capacity: 25, ratio: 25 },
+    { deviceName: "内容02", productionLine: "产线02", capacity: 92, ratio: 90 },
+    { deviceName: "内容03", productionLine: "产线03", capacity: 58, ratio: 55 },
+    { deviceName: "内容04", productionLine: "产线04", capacity: 46, ratio: 45 },
+    { deviceName: "内容05", productionLine: "产线05", capacity: 6, ratio: 5 },
+    { deviceName: "内容06", productionLine: "产线06", capacity: 85, ratio: 80 },
+    { deviceName: "内容07", productionLine: "产线07", capacity: 72, ratio: 70 },
+    { deviceName: "内容08", productionLine: "产线08", capacity: 25, ratio: 25 },
   ];
 
   // 🎯 列配置，支持render函数自定义渲染
   const columns = [
     {
-      title: "设备名称",
+      title: "名称",
       dataIndex: "deviceName",
       key: "deviceName",
       width: "25%",
-      render: (text) => {
+      render: (text: any) => {
         return `<span style="font-size: 14px; color: #fff">${text}</span>`;
       },
     },
     {
-      title: "所属产线",
+      title: "所属",
       dataIndex: "productionLine",
       key: "productionLine",
       width: "25%",
-      render: (text) => {
+      render: (text: any) => {
         return `<span style="color: #fff">${text}</span>`;
       },
     },
     {
-      title: "产能",
+      title: "值",
       dataIndex: "capacity",
       key: "capacity",
       width: "25%",
-      render: (text, record) => {
+      render: (text: any, record: any) => {
         if (record.isEmpty) {
           return "";
         }
@@ -60,11 +52,11 @@ const LoomRuntimeRatio = () => {
       },
     },
     {
-      title: "运行时长占比",
+      title: "占比",
       dataIndex: "ratio",
       key: "ratio",
       width: "25%",
-      render: (text, record) => {
+      render: (text: any, record: any) => {
         // 根据占比设置不同颜色
         const ratio = Number(text);
         let color = "#52c41a"; // 默认绿色
@@ -95,4 +87,3 @@ const LoomRuntimeRatio = () => {
 };
 
 export default LoomRuntimeRatio;
-

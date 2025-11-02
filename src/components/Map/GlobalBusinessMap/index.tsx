@@ -1,99 +1,19 @@
+import businessLocationsData from "@/assets/json/businessLocations.json"; // 导入业务地点数据
+import worldJson from "@/assets/json/worldGeo.json"; // 导入世界地图数据
 import ChartBase from "@/components/ChartBase";
+import * as echarts from "echarts";
 import { useRef } from "react";
 import bluePosition from "./assets/bluePosition.png";
 import titleBg from "./assets/titlebg.png";
 import yellowPosition from "./assets/yellowPosition.png";
 import styles from "./index.module.less";
-import "./world.js"; // 导入世界地图数据
 
 const GlobalBusinessMap = () => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
-  // 业务地点坐标数据
-  const businessLocations = {
-    // 兰州（公司总部）
-    headquarters: {
-      name: "兰州三毛实业有限公司",
-      coord: [103.834303, 36.061089], // 兰州坐标
-      type: "headquarters",
-    },
-    // 其他业务地点
-    branches: [
-      {
-        name: "加拿大",
-        coord: [-106.346771, 56.130366],
-        type: "branch",
-        labelPosition: "right",
-      },
-      {
-        name: "美国",
-        coord: [-95.712891, 37.09024],
-        type: "branch",
-        labelPosition: "right",
-      },
-      {
-        name: "南美洲",
-        coord: [-58.381559, -14.235004],
-        type: "branch",
-        labelPosition: "right",
-      },
-      {
-        name: "非洲",
-        coord: [17.873887, 0.228021],
-        type: "branch",
-        labelPosition: "top",
-      },
-      {
-        name: "欧洲",
-        coord: [10.451526, 54.525961],
-        type: "branch",
-        labelPosition: "right",
-      },
-      // {
-      //   name: '西亚',
-      //   coord: [53.688046, 32.427908],
-      //   type: 'branch',
-      //   labelPosition: 'right',
-      // },
-      {
-        name: "中亚",
-        coord: [64.585262, 41.377491],
-        type: "branch",
-        labelPosition: "top",
-      },
-      {
-        name: "俄罗斯",
-        coord: [105.318756, 61.52401],
-        type: "branch",
-        labelPosition: "right",
-      },
-      {
-        name: "日本",
-        coord: [138.252924, 36.204824],
-        type: "branch",
-        labelPosition: "bottom",
-      },
-      {
-        name: "南亚",
-        coord: [78.96288, 20.593684],
-        type: "branch",
-        labelPosition: "bottom",
-      },
-      {
-        name: "东南亚",
-        coord: [101.975766, 4.210484],
-        type: "branch",
-        labelPosition: "bottom",
-      },
-      {
-        name: "澳大利亚",
-        coord: [133.775136, -25.274398],
-        type: "branch",
-        labelPosition: "left",
-      },
-    ],
-  };
+  // 从JSON文件导入业务地点数据
+  const businessLocations = businessLocationsData;
 
   // 图表配置
   const options = {
@@ -107,7 +27,7 @@ const GlobalBusinessMap = () => {
           if (params.data.type === "headquarters") {
             return `<div style="padding: 8px;">
                 <div style="color: #ff4757; font-weight: bold;">
-                  兰州三毛实业有限公司
+                  xx有限公司
                 </div>
               </div>`;
           } else {
@@ -234,7 +154,7 @@ const GlobalBusinessMap = () => {
         label: {
           show: true,
           position: "left",
-          formatter: "{companyName|兰州三毛实业有限公司}",
+          formatter: "{companyName|xx有限公司}",
           rich: {
             companyName: {
               color: "#ffffff",
@@ -287,9 +207,19 @@ const GlobalBusinessMap = () => {
     ],
   };
 
+  // 自定义onChartReady函数
+  const handleChartReady = (chart: any) => {
+    if (chart) {
+      try {
+        // 注册世界地图
+        echarts.registerMap("world", worldJson as any);
+      } catch (e) {}
+    }
+  };
+
   return (
     <div className={styles.worldMap}>
-      <ChartBase option={options} id="chart_worldMapSanMao" />
+      <ChartBase option={options} id="chart_worldMapSanMao" onChartReady={handleChartReady} />
     </div>
   );
 };

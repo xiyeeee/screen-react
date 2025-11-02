@@ -1,6 +1,5 @@
-import React from "react";
-import * as echarts from "echarts";
 import ChartBase from "@/components/ChartBase";
+import * as echarts from "echarts";
 
 const ColorfulRadar = () => {
   const option = {
@@ -110,7 +109,7 @@ const ColorfulRadar = () => {
       },
     ],
     animationEasing: "elasticOut",
-    animationDelay: function (idx) {
+    animationDelay: function (idx: any) {
       return idx * 100;
     },
   };
@@ -119,4 +118,3 @@ const ColorfulRadar = () => {
 };
 
 export default ColorfulRadar;
-

@@ -42,7 +42,7 @@ interface PowerStackBarProps {
 
 const PowerStackBar: React.FC<PowerStackBarProps> = (props) => {
   const { data = initScreenData.capacityTrend } = props;
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState<number>(0);
 
   // 🎯 数据分组逻辑：将数据按月份分组
   const groupDataByMonths = (capacityData: CapacityTrendItem[] | undefined): GroupedDataItem[] => {
@@ -223,7 +223,7 @@ const PowerStackBar: React.FC<PowerStackBarProps> = (props) => {
       axisPointer: {
         type: "shadow",
       },
-      formatter: function (params) {
+      formatter: function (params: any) {
         let result = `<div style="background:rgba(0,0,0,0.8);border:1px solid rgba(255,255,255,0.2);padding:8px;border-radius:4px;">
           <div style="color:#fff;margin-bottom:6px;">${params[0].axisValue}</div>`;
 
@@ -321,7 +321,7 @@ const PowerStackBar: React.FC<PowerStackBarProps> = (props) => {
           color: "#fff",
           fontSize: 12,
           fontWeight: 400,
-          formatter: function (params) {
+          formatter: function (params: any) {
             // 只有当值大于0时才显示标签
             return params.value > 0 ? `${params.value}%` : "";
           },

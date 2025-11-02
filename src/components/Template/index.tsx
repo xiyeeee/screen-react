@@ -1,4 +1,3 @@
-import React from "react";
 /*
  * @Author: luomingxi
  * @Date: 2025-06-28 15:50:50
@@ -13,9 +12,8 @@ export const chartList = [
     name: "甘肃兰州三毛公司大屏",
     description: "1440*900的定制",
     category: "template",
-    position: "components/Template/SanMao/ScreenOne",
-    url: "/sanMao/screenOne",
+    position: "components/ScreenOne",
+    url: "/template/screenOne",
     previewImg: sanMaoTemplateOneImg,
   },
 ];
-

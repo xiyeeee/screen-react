@@ -1,5 +1,5 @@
-import React from "react";
 import ChartBase from "@/components/ChartBase";
+import React from "react";
 
 interface Props {
   [key: string]: any;
@@ -17,7 +17,14 @@ const Base3dPie: React.FC<Props> = (props) => {
   } = props;
 
   // 计算参数方程
-  function getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, height) {
+  function getParametricEquation(
+    startRatio: number,
+    endRatio: number,
+    isSelected: boolean,
+    isHovered: boolean,
+    k: number,
+    height: number,
+  ) {
     // 计算
     const midRatio = (startRatio + endRatio) / 2;
 
@@ -52,7 +59,7 @@ const Base3dPie: React.FC<Props> = (props) => {
         max: Math.PI * 2,
         step: Math.PI / 20,
       },
-      x: function (u, v) {
+      x: function (u: number, v: number) {
         if (u < startRadian) {
           return offsetX + Math.cos(startRadian) * (1 + Math.cos(v) * k) * hoverRate;
         }
@@ -61,7 +68,7 @@ const Base3dPie: React.FC<Props> = (props) => {
         }
         return offsetX + Math.cos(u) * (1 + Math.cos(v) * k) * hoverRate;
       },
-      y: function (u, v) {
+      y: function (u: number, v: number) {
         if (u < startRadian) {
           return offsetY + Math.sin(startRadian) * (1 + Math.cos(v) * k) * hoverRate;
         }
@@ -70,7 +77,7 @@ const Base3dPie: React.FC<Props> = (props) => {
         }
         return offsetY + Math.sin(u) * (1 + Math.cos(v) * k) * hoverRate;
       },
-      z: function (u, v) {
+      z: function (u: number, v: number) {
         if (u < -Math.PI * 0.5) {
           return Math.sin(u);
         }
@@ -83,12 +90,12 @@ const Base3dPie: React.FC<Props> = (props) => {
   }
 
   // 生成模拟 3D 饼图的配置项
-  function getPie3D(pieData, internalDiameterRatio) {
-    const series = [];
-    let sumValue = 0;
-    let startValue = 0;
-    let endValue = 0;
-    const legendData = [];
+  function getPie3D(pieData: any[], internalDiameterRatio: number): any[] {
+    const series: any[] = [];
+    let sumValue: number = 0;
+    let startValue: number = 0;
+    let endValue: number = 0;
+    const legendData: string[] = [];
     const k =
       typeof internalDiameterRatio !== "undefined"
         ? (1 - internalDiameterRatio) / (1 + internalDiameterRatio)
@@ -98,7 +105,7 @@ const Base3dPie: React.FC<Props> = (props) => {
     for (let i = 0; i < pieData.length; i++) {
       sumValue += pieData[i].value;
 
-      const seriesItem = {
+      const seriesItem: any = {
         name: typeof pieData[i].name === "undefined" ? `series${i}` : pieData[i].name,
         type: "surface",
         parametric: true,
@@ -114,7 +121,7 @@ const Base3dPie: React.FC<Props> = (props) => {
       };
 
       if (typeof pieData[i].itemStyle !== "undefined") {
-        const itemStyle = {};
+        const itemStyle: any = {};
         typeof pieData[i].itemStyle.color !== "undefined"
           ? (itemStyle.color = pieData[i].itemStyle.color)
           : null;
@@ -167,13 +174,13 @@ const Base3dPie: React.FC<Props> = (props) => {
           max: Math.PI,
           step: Math.PI / 20,
         },
-        x: function (u, v) {
+        x: function (u: number, v: number) {
           return ((Math.sin(v) * Math.sin(u) + Math.sin(u)) / Math.PI) * 2.1;
         },
-        y: function (u, v) {
+        y: function (u: number, v: number) {
           return ((Math.sin(v) * Math.cos(u) + Math.cos(u)) / Math.PI) * 2.1;
         },
-        z: function (u, v) {
+        z: function (u: number, v: number) {
           return Math.cos(v) > 0 ? 0 : -5;
         },
       },
@@ -201,13 +208,13 @@ const Base3dPie: React.FC<Props> = (props) => {
           max: Math.PI,
           step: Math.PI / 20,
         },
-        x: function (u, v) {
+        x: function (u: number, v: number) {
           return ((Math.sin(v) * Math.sin(u) + Math.sin(u)) / Math.PI) * 2.1;
         },
-        y: function (u, v) {
+        y: function (u: number, v: number) {
           return ((Math.sin(v) * Math.cos(u) + Math.cos(u)) / Math.PI) * 2.1;
         },
-        z: function (u, v) {
+        z: function (u: number, v: number) {
           return Math.cos(v) > 0 ? -15 : -20;
         },
       },
@@ -217,7 +224,7 @@ const Base3dPie: React.FC<Props> = (props) => {
   }
 
   // 准备数据
-  const optionsData = chartData.categories.map((item, index) => ({
+  const optionsData: any[] = chartData.categories.map((item: string, index: number) => ({
     name: item,
     value: chartData.values[index],
     itemStyle: {
@@ -269,9 +276,15 @@ const Base3dPie: React.FC<Props> = (props) => {
     },
     animation: true,
     tooltip: {
-      formatter: (params) => {
+      formatter: (params: any) => {
         if (params.seriesName !== "mouseoutSeries" && params.seriesName !== "pie2d") {
-          return `${params.seriesName}<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${params.color};"></span>${params.seriesIndex < optionsData.length ? optionsData[params.seriesIndex].value : ""}`;
+          return `${
+            params.seriesName
+          }<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${
+            params.color
+          };"></span>${
+            params.seriesIndex < optionsData.length ? optionsData[params.seriesIndex].value : ""
+          }`;
         }
       },
       textStyle: {

@@ -1,15 +1,19 @@
-/*
- * @Author: luomingxi
- * @Date: 2025-06-24 16:07:26
- * @Description:
- * @LastEditors: luomingxi
- * @LastEditTime: 2025-07-08 09:07:29
- */
-import React from "react";
 import ChartBase from "@/components/ChartBase";
+import React from "react";
 import statusFooter from "./assets/statusFooter.png";
 import styles from "./index.module.less";
-const CustomLegend = ({ data, colors }) => {
+// 类型定义
+interface LegendItem {
+  name: string;
+  value: number;
+}
+
+interface CustomLegendProps {
+  data: LegendItem[];
+  colors: string[];
+}
+
+const CustomLegend: React.FC<CustomLegendProps> = ({ data, colors }) => {
   const total = data.reduce((sum, item) => sum + item.value, 0);
 
   return (
@@ -18,7 +22,7 @@ const CustomLegend = ({ data, colors }) => {
       <div className={styles.legendHeader}>
         <span className={styles.headerEmpty} />
         <span className={styles.headerName} />
-        <span className={styles.headerTitle}>织机数量</span>
+        <span className={styles.headerTitle}>机器数量</span>
         <span className={styles.headerPercent}>占比</span>
       </div>
 
@@ -35,7 +39,14 @@ const CustomLegend = ({ data, colors }) => {
   );
 };
 // 生成扇形的曲面参数方程，用于 series-surface.parametricEquation
-function getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, h) {
+function getParametricEquation(
+  startRatio: number,
+  endRatio: number,
+  isSelected: boolean,
+  isHovered: boolean,
+  k: number,
+  h: number,
+) {
   // 计算
   const midRatio = (startRatio + endRatio) / 2;
 
@@ -68,7 +79,7 @@ function getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, h
       step: Math.PI / 20,
     },
 
-    x: function (u, v) {
+    x: function (u: number, v: number) {
       if (u < startRadian) {
         return offsetX + Math.cos(startRadian) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
       }
@@ -78,7 +89,7 @@ function getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, h
       return offsetX + Math.cos(u) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
     },
 
-    y: function (u, v) {
+    y: function (u: number, v: number) {
       if (u < startRadian) {
         return offsetY + Math.sin(startRadian) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
       }
@@ -88,7 +99,7 @@ function getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, h
       return offsetY + Math.sin(u) * (1 + Math.cos(v) * k) * hoverRate * 1.5;
     },
 
-    z: function (u, v) {
+    z: function (u: number, v: number) {
       if (u < -Math.PI * 0.5) {
         return Math.sin(u) * 2;
       }
@@ -101,12 +112,12 @@ function getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, h
 }
 
 // 生成模拟 3D 饼图的配置项
-function getPie3D(pieData, internalDiameterRatio) {
-  const series = [];
-  let sumValue = 0;
-  let startValue = 0;
-  let endValue = 0;
-  const legendData = [];
+function getPie3D(pieData: any[], internalDiameterRatio: number) {
+  const series: any[] = [];
+  let sumValue: number = 0;
+  let startValue: number = 0;
+  let endValue: number = 0;
+  const legendData: string[] = [];
   const k =
     typeof internalDiameterRatio !== "undefined"
       ? (1 - internalDiameterRatio) / (1 + internalDiameterRatio)
@@ -116,7 +127,7 @@ function getPie3D(pieData, internalDiameterRatio) {
   for (let i = 0; i < pieData.length; i++) {
     sumValue += pieData[i].value;
 
-    const seriesItem = {
+    const seriesItem: any = {
       name: typeof pieData[i].name === "undefined" ? `series${i}` : pieData[i].name,
       type: "surface",
       parametric: true,
@@ -132,7 +143,7 @@ function getPie3D(pieData, internalDiameterRatio) {
     };
 
     if (typeof pieData[i].itemStyle !== "undefined") {
-      const itemStyle = {};
+      const itemStyle: any = {};
 
       typeof pieData[i].itemStyle.color !== "undefined"
         ? (itemStyle.color = pieData[i].itemStyle.color)
@@ -224,7 +235,7 @@ const CustomLegendPie3d: React.FC<Props> = (props) => {
     "rgba(146, 116, 58, 0.9)", // 上电：棕色
     "rgba(240, 134, 65, 0.9)", // 下电：橙色
   ];
-  const legendColors = ["#73C3EE", "#2FA3B5", "#92743A", "#F08641", ,];
+  const legendColors: string[] = ["#73C3EE", "#2FA3B5", "#92743A", "#F08641"];
 
   const grid3DConfig = {
     left: "0%",

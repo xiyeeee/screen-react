@@ -1,14 +1,22 @@
-import React from "react";
-import * as echarts from "echarts";
 import ChartBase from "@/components/ChartBase";
+import * as echarts from "echarts";
 
-const SzBar = () => {
-  const xAxisData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const yData1 = [9, 12, 15, 18, 15, 12, 9, 12, 15, 18, 15, 12];
-  const yData2 = [-9, -12, -15, -18, -15, -12, -9, -12, -15, -18, -15, -12];
+// 类型定义
+interface SzBarProps {
+  [key: string]: any;
+}
 
-  const barWidth = "10%";
-  const dataCoord = [
+interface CoordData {
+  coord: [number, number];
+}
+
+const SzBar: React.FC<SzBarProps> = () => {
+  const xAxisData: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const yData1: number[] = [9, 12, 15, 18, 15, 12, 9, 12, 15, 18, 15, 12];
+  const yData2: number[] = [-9, -12, -15, -18, -15, -12, -9, -12, -15, -18, -15, -12];
+
+  const barWidth: string = "10%";
+  const dataCoord: CoordData[] = [
     { coord: [0, 9] },
     { coord: [1, 12] },
     { coord: [2, 15] },
@@ -22,7 +30,7 @@ const SzBar = () => {
     { coord: [10, 15] },
     { coord: [11, 12] },
   ];
-  const dataCoord2 = [
+  const dataCoord2: CoordData[] = [
     { coord: [0, -9] },
     { coord: [1, -12] },
     { coord: [2, -15] },
@@ -37,7 +45,7 @@ const SzBar = () => {
     { coord: [11, -12] },
   ];
 
-  const option = {
+  const option: echarts.EChartsOption = {
     backgroundColor: "transparent",
     xAxis: {
       data: xAxisData,
@@ -85,39 +93,35 @@ const SzBar = () => {
         type: "bar",
         stack: "one",
         itemStyle: {
-          normal: {
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              {
-                offset: 1,
-                color: "rgba(0, 0, 0, 0)",
-              },
-              {
-                offset: 0.5,
-                color: "#466e71",
-              },
-              {
-                offset: 0,
-                color: "#eb9b44",
-              },
-            ]),
-          },
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            {
+              offset: 1,
+              color: "rgba(0, 0, 0, 0)",
+            },
+            {
+              offset: 0.5,
+              color: "#466e71",
+            },
+            {
+              offset: 0,
+              color: "#eb9b44",
+            },
+          ]),
         },
         barWidth: barWidth,
         markPoint: {
           symbol: "circle",
           itemStyle: {
-            normal: {
-              color: "#eb9b44",
-              shadowColor: "#eb9b44",
-              shadowBlur: 20,
-            },
+            color: "#eb9b44",
+            shadowColor: "#eb9b44",
+            shadowBlur: 20,
           },
           symbolSize: [10, 10], // 容器大小
           symbolOffset: [0, 0], // 位置偏移
-          data: dataCoord,
+          data: dataCoord as any,
         },
         data: yData1,
-        animationDelay: function (idx) {
+        animationDelay: function (idx: number) {
           return idx * 50;
         },
       },
@@ -126,32 +130,28 @@ const SzBar = () => {
         type: "bar",
         stack: "one",
         itemStyle: {
-          normal: {
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              {
-                offset: 0,
-                color: "rgba(0, 0, 0, 0)",
-              },
-              {
-                offset: 0.5,
-                color: "#774a75",
-              },
-              {
-                offset: 1,
-                color: "#b34d69",
-              },
-            ]),
-          },
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            {
+              offset: 0,
+              color: "rgba(0, 0, 0, 0)",
+            },
+            {
+              offset: 0.5,
+              color: "#774a75",
+            },
+            {
+              offset: 1,
+              color: "#b34d69",
+            },
+          ]),
         },
         barWidth: barWidth,
         markPoint: {
           symbol: "circle",
           itemStyle: {
-            normal: {
-              color: "#b34d69",
-              shadowColor: "#b34d69",
-              shadowBlur: 20,
-            },
+            color: "#b34d69",
+            shadowColor: "#b34d69",
+            shadowBlur: 20,
           },
           symbolSize: [10, 10],
           symbolOffset: [0, 0],
@@ -164,7 +164,7 @@ const SzBar = () => {
       },
     ],
     animationEasing: "elasticOut",
-    animationDelayUpdate: function (idx) {
+    animationDelayUpdate: function (idx: number) {
       return idx * 5;
     },
   };

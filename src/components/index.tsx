@@ -1,12 +1,3 @@
-import React from "react";
-/*
- * @Author: luomingxi
- * @Date: 2025-06-28 15:50:50
- * @Description: 组件统一导出文件
- * @LastEditors: luomingxi
- * @LastEditTime: 2025-07-08 09:08:03
- */
-
 // 导入所有分类的图表组件配置
 import { chartList as barCharts } from "./Bar";
 import { chartList as bar3dCharts } from "./Bar3d";
@@ -16,13 +7,13 @@ import { chartList as lineCharts } from "./Line";
 import { chartList as linkCharts } from "./LinkChart";
 import { chartList as mapCharts } from "./Map";
 import { chartList as otherCharts } from "./Other";
+import { chartList as pictorialBarCharts } from "./PictorialBar";
 import { chartList as pieCharts } from "./Pie";
 import { chartList as pie3dCharts } from "./Pie3d";
 import { chartList as radarCharts } from "./Radar";
 import { chartList as scatterCharts } from "./Scatter";
 import { chartList as table } from "./Table";
 import { chartList as Template } from "./Template";
-import { chartList as pictorialBarCharts } from "./PictorialBar";
 
 // 合并所有图表配置
 export const allChartList = [
@@ -97,17 +88,17 @@ export const getCategoryStats = () => {
 };
 
 // 根据分类获取图表列表的工具函数
-export const getChartsByCategory = (category) => {
+export const getChartsByCategory = (category: string) => {
   return chartsByCategory[category] || [];
 };
 
 // 根据key获取特定图表的工具函数
-export const getChartByKey = (key) => {
+export const getChartByKey = (key: string) => {
   return allChartList.find((chart) => chart.key === key);
 };
 
 // 搜索图表（支持名称和描述搜索）
-export const searchCharts = (keyword) => {
+export const searchCharts = (keyword: string) => {
   if (!keyword) return allChartList;
   const lowerKeyword = keyword.toLowerCase();
   return allChartList.filter(
@@ -119,4 +110,3 @@ export const searchCharts = (keyword) => {
 
 // 默认导出所有图表列表
 export default allChartList;
-

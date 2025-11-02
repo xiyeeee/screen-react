@@ -17,7 +17,7 @@ interface Props {
 
 const NumberCard: React.FC<Props> = (props) => {
   const {
-    title = "上电设备数量",
+    title = "数量",
     number = 999,
     unit = "个",
     className = "",
