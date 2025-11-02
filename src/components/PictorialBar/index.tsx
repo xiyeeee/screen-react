@@ -4,7 +4,7 @@ export const chartList = [
   {
     key: "StatisticsPictorialBar",
     name: "象形柱状图",
-    description: "三毛机器象形柱状图",
+    description: "象形柱状图",
     category: "pictorialBar",
     position: "components/PictorialBar/StatisticsPictorialBar",
     component: StatisticsPictorialBar,
