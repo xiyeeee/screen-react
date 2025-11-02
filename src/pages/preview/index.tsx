@@ -53,7 +53,10 @@ const { Search } = Input;
 
 const ComponentPreview = () => {
   const [searchText, setSearchText] = useState("");
-  const [currentCategory, setCurrentCategory] = useState("全部");
+  const [currentCategory, setCurrentCategory] = useState(() => {
+    // 从 localStorage 读取保存的分类，默认为"全部"
+    return localStorage.getItem("currentCategory") || "全部";
+  });
   const [displayedComponents, setDisplayedComponents] = useState<ComponentItem[]>([]);
   const [filteredComponents, setFilteredComponents] = useState<ComponentItem[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -148,6 +151,8 @@ const ComponentPreview = () => {
 
   const handleSelectItem = (item: { key: string; [key: string]: any }) => {
     setCurrentCategory(item.key);
+    // 保存到本地存储
+    localStorage.setItem("currentCategory", item.key);
     // console.log("选中分类:", item);
   };
 
@@ -210,7 +215,11 @@ const ComponentPreview = () => {
               className={styles.searchBox}
             />
 
-            <LeftMenu dataList={menuDataList} handleSelectItem={handleSelectItem} />
+            <LeftMenu
+              dataList={menuDataList}
+              handleSelectItem={handleSelectItem}
+              selectedKey={currentCategory}
+            />
           </div>
 
           <div className={styles.componentsContainer}>

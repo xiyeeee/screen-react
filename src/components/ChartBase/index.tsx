@@ -1,4 +1,5 @@
 import * as echarts from "echarts";
+import "echarts-gl";
 import { useEffect, useRef } from "react";
 import styles from "./index.less";
 

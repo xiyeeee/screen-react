@@ -15,18 +15,27 @@ interface MenuItem {
 interface CategoryProps {
   dataList: MenuItem[];
   handleSelectItem: (item: MenuItem) => void;
+  selectedKey?: string;
   loading?: boolean;
 }
 
-const Category: React.FC<CategoryProps> = ({ dataList, handleSelectItem, loading = false }) => {
-  const [selectedItem, setSelectedItem] = useState("");
+const Category: React.FC<CategoryProps> = ({
+  dataList,
+  handleSelectItem,
+  selectedKey,
+  loading = false,
+}) => {
+  const [selectedItem, setSelectedItem] = useState(selectedKey || "");
 
   useEffect(() => {
-    if (dataList.length) {
+    // 如果传入了selectedKey，使用它；否则使用第一个项目
+    if (selectedKey) {
+      setSelectedItem(selectedKey);
+    } else if (dataList.length && !selectedItem) {
       setSelectedItem(dataList[0].key);
       handleSelectItem(dataList[0]);
     }
-  }, []);
+  }, [dataList, selectedKey, selectedItem, handleSelectItem]);
 
   const handleItemClick = (key: string, item: MenuItem) => {
     setSelectedItem(key);
