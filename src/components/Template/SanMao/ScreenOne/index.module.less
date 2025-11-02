@@ -1,0 +1,180 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #0e1c47;
+  background-image: radial-gradient(circle at center, #1d3694 0%, #0e1c47 70%);
+}
+
+.content {
+  text-align: center;
+  padding: 40px;
+  border-radius: 8px;
+  max-width: 800px;
+}
+
+.title {
+  color: #fff !important;
+  margin-bottom: 24px !important;
+  font-size: 48px !important;
+  text-shadow: 0 0 10px rgba(36, 196, 255, 0.5);
+}
+
+.description {
+  color: #bbb !important;
+  font-size: 18px !important;
+  margin-bottom: 40px !important;
+}
+
+.screenContainer {
+  position: relative;
+  background: linear-gradient(270deg, rgba(5, 11, 35, 0) 0%, #050b23 20.12%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  :global(.dv-scroll-board .row-item) {
+    margin: 10px 0;
+  }
+  .worldMap {
+    width: 880px;
+    height: 440px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  .worldMapBg {
+    width: 700px;
+    height: 440px;
+    position: absolute;
+    top: 40%;
+    left: 49%;
+    transform: translate(-50%, -50%);
+    background: url('./components/GlobalBusinessMap/assets/worldmapBg.png');
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    // filter: brightness(0.7);
+  }
+
+  .topBlack {
+    width: 1000px;
+    height: 100px;
+    z-index: 5;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url('./components/GlobalBusinessMap/assets/topBlack.png');
+    background-size: 100% 100%;
+    background-position: center center;
+  }
+  .leftBlack {
+    width: 200px;
+    height: 800px;
+    position: absolute;
+    top: 22%;
+    left: 24%;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+    background: url('./components/GlobalBusinessMap/assets/leftBlack.png');
+    background-size: 100% 100%;
+    background-position: center center;
+  }
+  .rightBlack {
+    width: 200px;
+    height: 1000px;
+    position: absolute;
+    top: 22%;
+    left: 75%;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+    background: url('./components/GlobalBusinessMap/assets/rightBlack.png');
+    background-size: 100% 100%;
+    background-position: center center;
+  }
+  .bottomBlack {
+    width: 1000px;
+    height: 200px;
+    position: absolute;
+    z-index: 5;
+    top: 65%;
+    left: 47%;
+    transform: translate(-50%, -50%);
+    background: url('./components/GlobalBusinessMap/assets/bottomBlack.png');
+    background-size: 100% 100%;
+    background-position: center center;
+  }
+  .mainContent {
+    height: calc(100% - 50px);
+    display: flex;
+    position: relative;
+    padding: 0 20px;
+    gap: 10px;
+    margin-bottom: 20px;
+    z-index: 10;
+    .leftSection,
+    .rightSection {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      gap: 10px;
+      width: 400px;
+      height: 800px;
+      > div {
+        flex: 1;
+        height: 260px;
+      }
+    }
+
+    .centerSection {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      overflow: hidden;
+      height: 800px;
+
+      .statsCards {
+        display: grid;
+        margin-top: 20px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+
+        .statCard {
+          border-radius: 50%;
+          aspect-ratio: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 10px;
+          text-align: center;
+        }
+      }
+      .bottomDiv {
+        flex: none;
+        height: 260px;
+      }
+
+      .worldMap {
+        flex: 1;
+        background: rgba(0, 21, 41, 0.7);
+        border: 1px solid rgba(124, 216, 255, 0.3);
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}

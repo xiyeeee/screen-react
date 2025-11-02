@@ -1,0 +1,39 @@
+// 趋势图表容器样式
+.trendContainer {
+  display: flex;
+  height: 100%;
+  gap: 2px;
+
+  .chartSection {
+    flex: 3;
+    min-width: 0;
+    height: 100%;
+  }
+
+  .tableSection {
+    flex: 1;
+    min-width: 260px;
+    max-width: 320px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    // 确保SlickTable在容器内正确显示
+    :global(.slick-list) {
+      height: 100%;
+    }
+
+    :global(.slick-track) {
+      height: 100%;
+    }
+  }
+
+  // 自定义表格样式
+  .customTableHeader {
+    height: 30px;
+  }
+
+  .customTableRow {
+    height: 30px;
+  }
+}

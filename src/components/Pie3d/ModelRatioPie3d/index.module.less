@@ -1,0 +1,75 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.backgroundLayer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  opacity: 1;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.chartLayer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.legendLayer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 2;
+  padding: 0 20px;
+}
+
+.legendItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.legendContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legendIcon {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.legendName {
+  color: #fff;
+  font-size: 14px;
+  font-family: 'Source Han Sans CN', sans-serif;
+  white-space: nowrap;
+}
+
+.legendPercentage {
+  color: #fff;
+  font-size: 14px;
+  font-family: 'Source Han Sans CN', sans-serif;
+  margin-top: 4px;
+  text-align: center;
+}
