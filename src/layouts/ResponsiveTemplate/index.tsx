@@ -57,7 +57,7 @@ const ResponsiveTemplate: React.FC<ResponsiveTemplateProps> = (props) => {
             <div className={styles.header} style={headerStyle}>
               <div className={styles.titleContainer}>
                 <div className={styles.title}>{title}</div>
-                <Popover
+                {/* <Popover
                   content={
                     <div>
                       {referenceLinks.map((link) => (
@@ -73,7 +73,7 @@ const ResponsiveTemplate: React.FC<ResponsiveTemplateProps> = (props) => {
                   placement="bottomLeft"
                 >
                   <span style={{ cursor: "pointer", color: "#1890ff" }}>参考链接</span>
-                </Popover>
+                </Popover> */}
               </div>
               <div className={styles.time}>{currentTime}</div>
             </div>
