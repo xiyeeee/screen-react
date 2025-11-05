@@ -4,27 +4,21 @@ on:
   push:
     tags:
       - "v*.*.*" # 当推送版本标签时触发
-  workflow_dispatch:
-    inputs:
-      custom_version:
-        description: '自定义版本号 (可选)'
-        required: false
-        default: ''
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
 
-      - name: Login to Aliyun Container Registry
-        run: |
-          docker login --username ${{ secrets.ALIYUN_USERNAME }} --password ${{ secrets.ALIYUN_PASSWORD }} crpi-ow7mi2apt624v3c8.cn-heyuan.personal.cr.aliyuncs.com
+    - name: Login to Aliyun Container Registry
+      run: |
+        docker login --username ${{ secrets.ALIYUN_USERNAME }} --password ${{ secrets.ALIYUN_PASSWORD }} crpi-ow7mi2apt624v3c8.cn-heyuan.personal.cr.aliyuncs.com
 
     - name: Extract metadata
       id: meta
@@ -33,69 +27,11 @@ jobs:
         images: crpi-ow7mi2apt624v3c8.cn-heyuan.personal.cr.aliyuncs.com/xiye-docker/screen-react
         tags: |
           type=ref,event=tag
-          type=raw,value=latest,enable={{is_default_branch}}
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
         context: .
         push: true
-        tags: |
-          ${{ steps.meta.outputs.tags }}
-          crpi-ow7mi2apt624v3c8.cn-heyuan.personal.cr.aliyuncs.com/xiye-docker/screen-react:latest
+        tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-
-    - name: Generate deployment script
-      run: |
-        # 获取版本号
-        if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.custom_version }}" != "" ]]; then
-          VERSION="${{ github.event.inputs.custom_version }}"
-        elif [[ "${{ github.ref }}" == refs/tags/v* ]]; then
-          VERSION=$(echo "${{ github.ref }}" | sed 's|refs/tags/v||')
-        else
-          VERSION="latest"
-        fi
-
-        cat > deploy.sh << EOF
-        #!/bin/bash
-        set -e
-
-        REGISTRY="crpi-ow7mi2apt624v3c8.cn-heyuan.personal.cr.aliyuncs.com"
-        NAMESPACE="xiye-docker"
-        IMAGE_NAME="screen-react"
-        VERSION="$VERSION"
-        CONTAINER_NAME="screen-react"
-
-        echo "部署版本: \$VERSION"
-
-        # 停止并删除旧容器
-        docker stop \$CONTAINER_NAME 2>/dev/null || true
-        docker rm \$CONTAINER_NAME 2>/dev/null || true
-
-        # 拉取最新镜像
-        docker pull \$REGISTRY/\$NAMESPACE/\$IMAGE_NAME:\$VERSION
-
-        # 启动新容器
-        docker run -d \\
-          --name \$CONTAINER_NAME \\
-          --restart unless-stopped \\
-          -p 8081:80 \\
-          --label "app=screen-react" \\
-          --label "version=\$VERSION" \\
-          \$REGISTRY/\$NAMESPACE/\$IMAGE_NAME:\$VERSION
-
-        # 清理悬空镜像
-        docker image prune -f
-
-        echo "部署完成！"
-        echo "应用访问地址: http://localhost:8081"
-        EOF
-
-        chmod +x deploy.sh
-
-    - name: Upload deployment script
-      uses: actions/upload-artifact@v4
-      with:
-        name: deploy-script
-        path: deploy.sh
-        retention-days: 7
