@@ -17,11 +17,8 @@ jobs:
       uses: docker/setup-buildx-action@v3
 
     - name: Login to Aliyun Container Registry
-      uses: aliyun/acr-login@v1
-      with:
-        login-server: crpi-ow7mi2apt624v3c8.cn-heyuan.personal.cr.aliyuncs.com
-        username: ${{ secrets.ALIYUN_USERNAME }}
-        password: ${{ secrets.ALIYUN_PASSWORD }}
+      run: |
+        echo "${{ secrets.ALIYUN_PASSWORD }}" | docker login ${{ secrets.ALIYUN_USERNAME }} --password-stdin crpi-ow7mi2apt624v3c8.cn-heyuan.personal.cr.aliyuncs.com
 
     - name: Extract metadata
       id: meta
@@ -38,5 +35,3 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
