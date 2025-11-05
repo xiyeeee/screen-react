@@ -18,7 +18,7 @@ jobs:
 
     - name: Login to Aliyun Container Registry
       run: |
-        echo "${{ secrets.ALIYUN_PASSWORD }}" | docker login --username ${{ secrets.ALIYUN_USERNAME }} --password-stdin crpi-ow7mi2apt624v3c8.cn-heyuan.personal.cr.aliyuncs.com
+        docker login --username ${{ secrets.ALIYUN_USERNAME }} --password ${{ secrets.ALIYUN_PASSWORD }} crpi-ow7mi2apt624v3c8.cn-heyuan.personal.cr.aliyuncs.com
 
     - name: Extract metadata
       id: meta
